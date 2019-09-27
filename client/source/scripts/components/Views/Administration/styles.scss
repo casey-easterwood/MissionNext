@@ -1,0 +1,13 @@
+@import "../../../../styles/settings";
+
+.title {
+  display: block;
+  grid-area: searchbar;
+  font-weight: bold;
+  font-size: $font-size-biggest;
+  width: 100%;
+  padding-top: 15px;
+  text-align: center;
+  color: $color-white;
+  //border-bottom: 1px solid map_get($color-black-map, "black-50");
+}

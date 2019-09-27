@@ -1,0 +1,61 @@
+@import "../../../../styles/settings";
+
+.list {
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+}
+
+.formGroup {
+  padding: 0 0;
+  margin: 10px 10px;
+  min-width: 200px;
+
+  label {
+    display: block;
+    color: map_get($color-black-map, "black-50");
+    margin: 5px;
+  }
+
+  input {
+    flex-grow: 1;
+    margin: 5px;
+  }
+
+  .readOnly {
+    display: block;
+    margin: 5px;
+    padding: .75em 0;
+  }
+
+  .validationMessage {
+    display: block;
+    color: map_get($color-warning-map, "warn-60");
+  }
+}
+
+@media screen and (max-width: $break-small) {
+  .formGroup {
+    width: 100%;
+    padding: 0 0;
+    margin: 10px 10px;
+
+    label {
+      display: block;
+      color: map_get($color-black-map, "black-50");
+      margin: 5px;
+    }
+
+    input {
+      width: 100%;
+      margin: 5px;
+    }
+
+    .validationMessage {
+      display: block;
+      color: map_get($color-warning-map, "warn-60");
+    }
+  }
+}

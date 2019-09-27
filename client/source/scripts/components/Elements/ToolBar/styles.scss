@@ -1,0 +1,39 @@
+@import "../../../../styles/settings";
+
+.toolBar {
+  box-sizing: border-box;
+  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  grid-area: searchbar;
+  padding: 10px 50px 10px 15px;
+  //background-color: map_get($color-primary-map, "primary-80");
+  color: $color-white;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  //border-bottom: 1px solid map_get($color-black-map, "black-10");
+
+  img{
+    margin: auto;
+    padding: 0;
+    display:inline;
+    width:40px;
+    height:40px;
+  }
+
+  h2 {
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.42);
+  }
+}
+
+@media screen and (max-width: $break-small) {
+  .toolBar {
+    h1, h2, h3, h4, h5, h6 {
+      display: none;
+    }
+  }
+
+}

@@ -1,0 +1,23 @@
+<h1>users</h1>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Authentication</th>
+        <th></th>
+    </tr>
+    {{#each model}}
+        <tr>
+            <td>{{UserId}}</td>
+            <td>{{UserLogin}}</td>
+            <td>
+                <a href="/users/view/{{UserId}}">view</a> |
+                <a href="/users/confirmDelete/{{UserId}}">delete</a>
+            </td>
+        </tr>
+    {{/each}}
+</table>
+<br />
+<div>
+    <a href="/users/create">Create User</a>
+</div>

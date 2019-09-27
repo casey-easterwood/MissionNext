@@ -1,0 +1,48 @@
+@import "../../../../../styles/settings";
+
+.Form {
+  margin: 0;
+  padding: 10px;
+  width: auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .buttonGroup{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.questionList{
+  background-color: map_get($color-black-map, "black-10");
+  list-style: none;
+  width: 100%;
+  padding-left: 0;
+
+  li {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5px 0;
+
+    .question {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .answer {
+      padding-left: 20px;
+      width: 100%;
+      color: map_get($color-secondary-map, "secondary-90");
+    }
+  }
+}

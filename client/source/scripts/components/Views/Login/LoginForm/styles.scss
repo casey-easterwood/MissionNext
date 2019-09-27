@@ -1,0 +1,22 @@
+@import "../../../../../styles/settings";
+
+.loginComponent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: map_get($color-black-map, "black-10");
+  border: 1px solid map_get($color-black-map, "black-40");
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.42);
+
+  margin: 0;
+  padding: 10px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;  top: 50%;
+  width: 300px;
+}
+.loginMessage{
+  width: 100%;
+  text-align: center;
+  color: map_get($color-warning-map, "warn-80");
+}

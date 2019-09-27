@@ -1,0 +1,9 @@
+@import "../../../../../styles/settings";
+
+.sidebar {
+  grid-area: sidebar;
+  padding: 10px 2px 0 2px;
+  background-color: $color-gray-light;
+  margin: 0;
+}
+

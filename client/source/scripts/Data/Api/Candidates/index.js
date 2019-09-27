@@ -1,0 +1,77 @@
+import Api from "../Api";
+
+class Index extends Api{
+    constructor() {
+        super();
+    }
+
+    getList(credentials){
+        return fetch("/api/candidates/list",{
+            method: "GET",
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+        .then(response => response.json())
+    }
+
+    update(data){
+        return fetch("/api/candidates/save",{
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+        .then(response => response.json())
+    }
+
+    create(data){
+        return fetch("/api/candidates/createNew",{
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+        .then(response => response.json())
+    }
+
+    exists(Name){
+        return fetch("/api/candidates/exists",{
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({Name:Name}),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+        .then(response => response.json())
+    }
+
+    delete(id){
+        return fetch("/api/candidates/delete",{
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({id:id}),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+            .then(response => response.json())
+    }
+
+    static getInstance(){
+        return new Index();
+    }
+}
+
+export default Index

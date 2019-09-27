@@ -1,0 +1,55 @@
+@import "../../../../styles/settings";
+
+.formGroup {
+  padding: 0 0;
+  margin: 10px 10px;
+  min-width: 200px;
+  flex-grow: 1;
+
+  label {
+    display: block;
+    color: map_get($color-black-map, "black-50");
+    margin: 5px;
+  }
+
+  textarea {
+    width: 100%;
+    margin: 5px;
+    height: 150px;
+  }
+
+  .readOnly {
+    display: block;
+    margin: 5px;
+    padding: .75em 0;
+  }
+
+  .validationMessage {
+    display: block;
+    color: map_get($color-warning-map, "warn-60");
+  }
+}
+
+@media screen and (max-width: $break-small) {
+  .formGroup {
+    width: 100%;
+    padding: 0 0;
+    margin: 10px 10px;
+
+    label {
+      display: block;
+      color: map_get($color-black-map, "black-50");
+      margin: 5px;
+    }
+
+    input {
+      width: 100%;
+      margin: 5px;
+    }
+
+    .validationMessage {
+      display: block;
+      color: map_get($color-warning-map, "warn-60");
+    }
+  }
+}

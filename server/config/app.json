@@ -1,0 +1,4 @@
+{
+  "staticFilesPath" : "/client/dist/resources",
+  "port" : 3000
+}

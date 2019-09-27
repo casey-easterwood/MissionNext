@@ -1,0 +1,16 @@
+@import "../../../../styles/settings";
+
+.formDefault {
+  margin: 10px 0;
+  .formTitle {
+    display: block;
+    margin: 0;
+    color: $color-primary;
+    padding: .5em;
+
+    font-weight: bold;
+    font-size: $font-size-biggest;
+    text-align: center;
+  }
+}
+

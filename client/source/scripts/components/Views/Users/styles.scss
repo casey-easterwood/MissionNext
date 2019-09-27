@@ -1,0 +1,47 @@
+@import "../../../../styles/settings";
+
+.sidebarSearchInput{
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  background-color: rgba(0, 0, 0, 0.20);
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.50);
+  color: $color-white;
+  transition: .5s;
+}
+.sidebarSearchInput::placeholder{
+  color: rgba(255, 255, 255, 0.75);
+}
+.sidebarSearchInput:focus {
+  width: 300px;
+}
+
+.usersTable {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  font-size: $font-size-bigger;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  thead tr {
+    font-size: $font-size;
+    background-color: $color-gray-light;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  tbody tr {
+    font-size: $font-size;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  tbody tr:hover {
+    background-color: $color-gray-dark;
+    color: $color-white;
+  }
+}

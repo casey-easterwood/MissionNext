@@ -1,0 +1,13 @@
+@import "../../../../../styles/settings";
+
+.main {
+  width: 100%;
+  padding: 0;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  //justify-content: stretch;
+  align-items: stretch;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.50);
+}
+

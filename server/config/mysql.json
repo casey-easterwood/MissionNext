@@ -1,0 +1,7 @@
+{
+  "connectionLimit" : 10,
+  "host"     : "localhost",
+  "user"     : "developer",
+  "password" : "Tuo!umn#",
+  "database" : "mission_next"
+}

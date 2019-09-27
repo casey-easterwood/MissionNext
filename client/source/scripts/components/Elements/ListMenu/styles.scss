@@ -1,0 +1,25 @@
+@import "../../../../styles/settings";
+
+.ListMenu {
+  background-color: $color-gray-light;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+
+  li a {
+    display: block;
+    padding: 8px 16px;
+    color: $color-gray-dark;
+    font-size: $font-size-bigger;
+    text-decoration: none;
+    border: 1px solid $color-white;
+  }
+
+  li a:hover {
+    background-color: $color-gray-dark;
+    color: $color-white;
+  }
+
+}

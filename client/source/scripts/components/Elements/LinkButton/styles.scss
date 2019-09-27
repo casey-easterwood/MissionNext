@@ -1,0 +1,105 @@
+@import "../../../../styles/settings";
+
+.linkButton {
+  position: relative;
+  min-width: 80px;
+  height: 30px;
+  background-color: $color-white;
+  border: 2px solid map_get($color-secondary-map, "secondary-90");
+  color: map_get($color-secondary-map, "secondary-90");
+  cursor: pointer;
+  padding: 0;
+  margin: 2px;
+  border-radius: 20px;
+  transition: 0.5s;
+
+  div {
+    color: map_get($color-secondary-map, "secondary-90");
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    text-decoration: none;
+    text-transform: uppercase;
+    transform: translate(-50%, -50%);
+    left: 50%;  top: 50%;
+  }
+}
+
+.linkButton:hover {
+  background-color:  map_get($color-secondary-map, "secondary-90");
+
+  div {
+    color: $color-white;
+  }
+}
+
+.linkButtonSecondary {
+  position: relative;
+  min-width: 80px;
+  height: 30px;
+  background-color: $color-white;
+  border: 2px solid map_get($color-black-map, "black-50");
+  color: map_get($color-black-map, "black-50");
+  cursor: pointer;
+  margin: 2px;
+  border-radius: 20px;
+  transition: 0.5s;
+
+  div {
+    font-weight: bold;
+    color: map_get($color-black-map, "black-50");
+    position: absolute;
+
+    text-decoration: none;
+    text-transform: uppercase;
+    transform: translate(-50%, -50%);
+    left: 50%;  top: 50%;
+  }
+}
+
+.linkButtonSecondary:hover {
+  background-color:  map_get($color-black-map, "black-50");
+
+  div {
+    color: $color-white;
+  }
+}
+
+.linkButtonWarning {
+  position: relative;
+  min-width: 80px;
+  height: 30px;
+  background-color: $color-white;
+  border: 2px solid map_get($color-warning-map, "warn-90");
+  color: map_get($color-warning-map, "warn-90");
+  cursor: pointer;
+  padding: 0;
+  margin: 2px;
+  border-radius: 20px;
+  transition: 0.5s;
+
+  div {
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: map_get($color-warning-map, "warn-90");
+    transform: translate(-50%, -50%);
+    left: 50%;  top: 50%;
+  }
+}
+
+.linkButtonWarning:hover {
+  background-color: map_get($color-warning-map, "warn-90");
+
+  div {
+    color: $color-white;
+  }
+}

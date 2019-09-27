@@ -1,0 +1,9 @@
+{
+  "extname": "handlebars",
+  "layoutsDir": "server/views/layouts",
+  "defaultLayout": "main",
+  "helpers": "server/views/helpers",
+  "partialsDir": [
+    "server/views/partials"
+  ]
+}

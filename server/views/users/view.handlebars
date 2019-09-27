@@ -1,0 +1,9 @@
+
+{{#if model.0.UserId }}
+    <h1>View {{model.0.UserLogin}}</h1>
+
+    <p><span style="font-weight: bold">UserId :</span>{{model.0.UserId}}</p>
+    <p><span style="font-weight: bold">UserLogin :</span>{{model.0.UserLogin}}</p>
+{{else}}
+    <h1>No user found</h1>
+{{/if}}

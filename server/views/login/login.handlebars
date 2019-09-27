@@ -1,0 +1,12 @@
+<h1>Authentication</h1>
+{{#if message }}
+    <div>{{message}}</div>
+{{/if}}
+
+<form action="/login/authenticate" method="post">
+    <label for="UserLogin">User Authentication</label>
+    <input type="text" id="UserLogin" name="UserLogin">
+    <label for="UserLogin">Password</label>
+    <input type="text" id="UserPassword" name="UserPassword">
+    <input type="Submit" value="Authentication">
+</form>

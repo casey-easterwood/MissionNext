@@ -1,0 +1,154 @@
+@import "../../../../styles/settings";
+
+.Menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: map_get($color-black-map, "black-10");
+  color: map_get($color-black-map, "black-60");
+
+  h2 {
+    text-align: center;
+  }
+}
+
+.MenuButton{
+  position: relative;
+  font-weight: bold;
+  flex-grow: 0;
+  width: 50%;
+  height: 40px;
+  margin: 10px;
+  background-color: map_get($color-black-map, "black-10");
+  color: map_get($color-primary-map, "primary-90");
+  border-radius: 5px;
+  border: 2px solid map_get($color-primary-map, "primary-90");
+  cursor: pointer;
+
+  span {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: map_get($color-primary-map, "primary-90");
+    transform: translate(-50%, -50%);
+    left: 50%;  top: 50%;
+  }
+}
+
+.MenuButton:hover{
+  background-color: map_get($color-primary-map, "primary-90");
+
+  span {
+    color: $color-white;
+  }
+}
+
+.MenuButtonWarning{
+  position: relative;
+  font-weight: bold;
+  flex-grow: 0;
+  width: 50%;
+  height: 40px;
+  margin: 10px;
+  background-color: map_get($color-black-map, "black-10");
+  color: map_get($color-warning-map, "warn-90");
+  border-radius: 5px;
+  border: 2px solid map_get($color-warning-map, "warn-90");
+  cursor: pointer;
+
+  span {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: map_get($color-warning-map, "warn-90");
+    transform: translate(-50%, -50%);
+    left: 50%;  top: 50%;
+  }
+}
+
+.MenuButtonWarning:hover{
+  background-color: map_get($color-warning-map, "warn-90");
+
+  span {
+    color: $color-white;
+  }
+}
+
+
+.List {
+  background-color: $color-white;
+
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+
+  li {
+    background-color: map_get($color-black-map, "black-10");
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    color: $color-gray-dark;
+    font-size: $font-size-bigger;
+    text-decoration: none;
+    border-bottom: 1px solid map_get($color-black-map, "black-20");
+    height: 50px;
+    padding: 0 2px 2px 2px;
+  }
+
+  li:hover {
+    //background-color: map_get($color-black-map, "black-20");
+    color: map_get($color-primary-map, "primary-60");
+  }
+
+  li.active {
+    //background-color: map_get($color-black-map, "black-20");
+    color: map_get($color-primary-map, "primary-60");
+  }
+
+  li .icon{
+    flex-grow: 0;
+    padding: 0;
+    background-color: $color-white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    border: 1px solid map_get($color-black-map, "black-20");
+  }
+
+  li .menuIcon{
+    background-color: $color-white;
+    border: 1px solid map_get($color-black-map, "black-20");
+    border-radius: 5px;
+    padding: 0;
+    flex-grow: 0;
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+  }
+
+  li .menuIcon:hover{
+    //background-color: map_get($color-primary-map, "primary-40");
+    box-shadow: 2px 2px 5px $color-gray-medium;
+  }
+
+  li span{
+    flex-grow: 1;
+    padding: 16px 5px 16px 5px;
+    font-weight: bold;
+
+  }
+}

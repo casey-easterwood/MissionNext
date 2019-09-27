@@ -1,0 +1,85 @@
+$color-primary: #0a4359;
+$color-secondary: #0a5920;
+$color-accent: #f2c72c;
+$color-warning: #590a27;
+$color-black: #0d0d0d;
+$color-white: #fbfff0;
+
+$color-primary-map: (
+        primary-90: lighten($color-primary, 10%),
+        primary-80: lighten($color-primary, 20%),
+        primary-70: lighten($color-primary, 30%),
+        primary-60: lighten($color-primary, 40%),
+        primary-50: lighten($color-primary, 50%),
+        primary-40: lighten($color-primary, 60%),
+        primary-30: lighten($color-primary, 70%),
+        primary-20: lighten($color-primary, 80%),
+        primary-10: lighten($color-primary, 90%),
+);
+
+$color-secondary-map: (
+        secondary-90: lighten($color-secondary, 10%),
+        secondary-80: lighten($color-secondary, 20%),
+        secondary-70: lighten($color-secondary, 30%),
+        secondary-60: lighten($color-secondary, 40%),
+        secondary-50: lighten($color-secondary, 50%),
+        secondary-40: lighten($color-secondary, 60%),
+        secondary-30: lighten($color-secondary, 70%),
+        secondary-20: lighten($color-secondary, 80%),
+        secondary-10: lighten($color-secondary, 90%),
+);
+
+$color-accent-map: (
+        accent-90: lighten($color-accent, 10%),
+        accent-80: lighten($color-accent, 20%),
+        accent-70: lighten($color-accent, 30%),
+        accent-60: lighten($color-accent, 40%),
+        accent-50: lighten($color-accent, 50%),
+        accent-40: lighten($color-accent, 60%),
+        accent-30: lighten($color-accent, 70%),
+        accent-20: lighten($color-accent, 80%),
+        accent-10: lighten($color-accent, 90%),
+);
+
+$color-warning-map: (
+        warn-90: lighten($color-warning, 10%),
+        warn-80: lighten($color-warning, 20%),
+        warn-70: lighten($color-warning, 30%),
+        warn-60: lighten($color-warning, 40%),
+        warn-50: lighten($color-warning, 50%),
+        warn-40: lighten($color-warning, 60%),
+        warn-30: lighten($color-warning, 70%),
+        warn-20: lighten($color-warning, 80%),
+        warn-10: lighten($color-warning, 90%),
+);
+
+$color-black-map: (
+        black-90: lighten($color-black, 10%),
+        black-80: lighten($color-black, 20%),
+        black-70: lighten($color-black, 30%),
+        black-60: lighten($color-black, 40%),
+        black-50: lighten($color-black, 50%),
+        black-40: lighten($color-black, 60%),
+        black-30: lighten($color-black, 70%),
+        black-20: lighten($color-black, 80%),
+        black-10: lighten($color-black, 90%),
+);
+
+$font-family: Arial, Helvetica, sans-serif;
+$font-size: 14px;
+$font-size-bigger: 16px;
+$font-size-biggest: 18px;
+$font-size-smaller: 10px;
+
+$color-gray-light: map_get($color-black-map, "black-20");
+$color-gray-medium: map_get($color-black-map, "black-50");
+$color-gray-dark: map_get($color-black-map, "black-70");
+
+$box-shadow-color: $color-gray-dark;
+
+$border-color: $color-gray-medium;
+$border-radius: 5%;
+
+$color-background: map_get($color-primary-map, "primary-20");
+
+$break-small:"500px"

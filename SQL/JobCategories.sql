@@ -1,0 +1,5 @@
+CREATE TABLE JobCategories (
+    Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Name varchar(25) NOT NULL
+)
+

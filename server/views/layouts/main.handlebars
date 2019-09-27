@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <link rel="icon"
+          type="image/png"
+          href="/resources/favicon-32x32.png">
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#0a4359">
+
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#0a4359">
+
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0a4359">
+    <style>
+        body {
+            display: grid;
+            height:100vh;
+            justify-content: stretch;
+            align-items: stretch;
+            overflow: hidden;
+            grid-column-gap: 0;
+            grid-row-gap: 0;
+            grid-template-columns: auto;
+            grid-template-rows: 50px 70px calc(100vh - 190px) 70px 0;
+            grid-template-areas:
+                    "menu"
+                    "toolbar"
+                    "main"
+                    "footer"
+                    "modal";
+        }
+
+        ::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            background-color: #CCCCCC;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            box-shadow: inset 0 0 5px white;
+            background: #1985a9;
+            border-radius: 50px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            box-shadow: inset 0 0 7px white;
+            background: #1985a9;
+        }
+
+        #menu-root{
+            grid-area: menu;
+            z-index: 2;
+        }
+
+        #toolbar-root{
+            grid-area: toolbar;
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        #root{
+            grid-area: main;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            padding: 0;
+            margin: 0;
+            overflow: auto;
+        }
+
+        #footer-root{
+            z-index: 0;
+            grid-area: footer;
+        }
+        #modal-root{
+        }
+    </style>
+</head>
+<body>
+
+{{{body}}}
+
+<script src="/resources/scripts/app.bundle.js"></script>
+</body>
+</html>
