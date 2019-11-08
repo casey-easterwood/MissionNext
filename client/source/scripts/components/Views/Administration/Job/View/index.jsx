@@ -3,13 +3,13 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import FormSection from "../../../Elements/FormSection";
-import DataField from "../../../../Data/Models/DataField";
-import FormGroupTextArea from "../../../Elements/FormGroupTextArea";
+import FormSection from "../../../../Elements/FormSection";
+import DataField from "../../../../../Data/Models/DataField";
+import FormGroupTextArea from "../../../../Elements/FormGroupTextArea";
 
 class View extends Component {
     dataProvider = window.dataProvider.jobs;
@@ -28,21 +28,21 @@ class View extends Component {
     }
 
     componentDidMount(){
-        this.dataProvider.subscribeToChanges(this.providerHandler);
+        window.dataProvider.jobs.subscribeToChanges(this.providerHandler);
 
-        if(this.dataProvider.rows.length == 0){
-            this.dataProvider.getAll()
+        if(window.dataProvider.jobs.rows.length == 0){
+            window.dataProvider.jobs.getAll()
         } else {
             const id = this.props.match.params.jobId;
-            const item = this.dataProvider.getRow(id);
+            const item = window.dataProvider.jobs.getRow(id);
 
-            this.dataProvider.getDescription(id);
+            window.dataProvider.jobs.getDescription(id);
             this.setState({item:item});
         }
     }
 
     componentWillUnmount(){
-        this.dataProvider.unsubscribe(this.providerHandler);
+        window.dataProvider.jobs.unsubscribe(this.providerHandler);
     }
 
     providerHandler(message, data){
@@ -53,9 +53,9 @@ class View extends Component {
             }
         } else if(message == "JOBS_LOADED"){
             const id = this.props.match.params.jobId;
-            this.state.item = this.dataProvider.getRow(id);
+            this.state.item = window.dataProvider.jobs.getRow(id);
 
-            this.dataProvider.getDescription(id);
+            window.dataProvider.jobs.getDescription(id);
         }
 
         this.setState(this.state);
@@ -122,7 +122,7 @@ class View extends Component {
                         />
                     </FormSection>
                     <FormSection justify={"end"}>
-                            <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/job/edit/${item.getKey()}`)} caption="Edit"/>
+                            <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/job/edit/${item.getKey()}`)} caption="Edit"/>
                             <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.goBack()} caption="Close"/>
                     </FormSection>
                 </Form>

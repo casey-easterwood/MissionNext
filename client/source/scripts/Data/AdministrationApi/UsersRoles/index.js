@@ -1,12 +1,12 @@
 import Api from '../Api';
 
-class UsersRoles extends Api{
+class Users extends Api{
     constructor() {
         super();
     }
 
     getAll(){
-        return fetch("/api/users/roles/getAll",{
+        return fetch("/api/users/getAll",{
             method: "GET",
             credentials: "include",
             headers: {
@@ -23,7 +23,7 @@ class UsersRoles extends Api{
     }
 
     update(data){
-        return fetch("/api/users/roles/update",{
+        return fetch("/api/users/update",{
             method: "POST",
             credentials: "include",
             body: JSON.stringify(data),
@@ -36,7 +36,7 @@ class UsersRoles extends Api{
     }
 
     create(data){
-        return fetch("/api/users/roles/createNew",{
+        return fetch("/api/users/createNew",{
             method: "POST",
             credentials: "include",
             body: JSON.stringify(data),
@@ -48,11 +48,11 @@ class UsersRoles extends Api{
         .then(response => response.json())
     }
 
-    exists(roleName){
-        return fetch("/api/users/roles/exists",{
+    userExists(userName){
+        return fetch("/api/users/userExists",{
             method: "POST",
             credentials: "include",
-            body: JSON.stringify({roleName:roleName}),
+            body: JSON.stringify({userName:userName}),
             headers: {
                 'Content-Type': 'application/json',
                 'Authentication' : this.getAuthHeader()
@@ -61,12 +61,30 @@ class UsersRoles extends Api{
         .then(response => response.json())
     }
 
+    resetPassword(userId, password){
+        let data = [
+            {name:"UserId", value:userId},
+            {name:"UserPassword", value:password}
+        ];
+
+        return fetch("/api/users/resetPassword",{
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+            .then(response => response.json())
+    }
+
     delete(userId){
         let data = [
             {name:"UserId", value:userId},
         ];
 
-        return fetch("/api/users/roles/delete",{
+        return fetch("/api/users/delete",{
             method: "POST",
             credentials: "include",
             body: JSON.stringify(data),
@@ -79,8 +97,8 @@ class UsersRoles extends Api{
     }
 
     static getInstance(){
-        return new UsersRoles();
+        return new Users();
     }
 }
 
-export default UsersRoles
+export default Users

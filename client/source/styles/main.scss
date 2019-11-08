@@ -18,7 +18,7 @@ input[type=number] {
   border-bottom: 1px solid map_get($color-black-map, "black-20");
   border-left: 1px solid map_get($color-black-map, "black-20");
   border-right: 1px solid map_get($color-black-map, "black-20");
-  //border-radius: $border-radius;
+  border-radius: 25px;
   height: 40px;
   box-sizing: border-box;
   padding: .5em;
@@ -29,3 +29,14 @@ label {
   font-size: $font-size-bigger;
   font-weight: bold;
 }
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul li {
+  margin: 0;
+  padding: 0;
+}
+

@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import Api from "../../Api/ProfileQuestionAnswers";
+import Repository from "../../Repository";
+import Api from "../../AdministrationApi/ProfileQuestionAnswers";
 import Model from "../../Models/ProfileQuestionAnswer";
 import UserDataRow from "../../Models/UserDataRow";
 import ProfileQuestionAnswer from "../../Models/ProfileQuestionAnswer";

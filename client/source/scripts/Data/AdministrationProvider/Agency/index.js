@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import AgencyApi from "../../Api/Agency";
+import Repository from "../../Repository";
+import AgencyApi from "../../AgencyApi/Agency";
 import AgencyDataRow from "../../Models/AgencyDataRow";
 
 class Agency extends Repository {

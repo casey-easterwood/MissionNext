@@ -3,13 +3,13 @@
  */
 
 import React, {Component} from 'react';
-import Main from '../../Elements/Layout/Main';
+import Main from '../../../Elements/Layout/Main';
 // import styles from './styles.scss';
-import ToolBar from "../../Elements/ToolBar";
-import Content from "../../Elements/Layout/Content";
-import ToolbarButton from "../../Elements/ToolbarButton";
-import VerticalMenu from "../../Elements/VerticalMenu";
-import {BackButton} from "../../Elements/BackButton";
+import ToolBar from "../../../Elements/ToolBar";
+import Content from "../../../Elements/Layout/Content";
+import ToolbarButton from "../../../Elements/ToolbarButton";
+import VerticalMenu from "../../../Elements/VerticalMenu";
+import {BackButton} from "../../../Elements/BackButton";
 
 class QuestionAnswers extends Component {
     state = {
@@ -42,24 +42,24 @@ class QuestionAnswers extends Component {
         let questionId = this.props.match.params.questionId || 0;
 
         let menuActions = [
-            {caption:"Edit Answer", onClick:(id) => this.props.history.push(`/questionanswer/edit/${groupId}/${id}`), warning:false},
+            {caption:"Edit Answer", onClick:(id) => this.props.history.push(`/administration/questionanswer/edit/${groupId}/${id}`), warning:false},
         ];
 
         return(
             <Main>
                 <ToolBar>
-                    <BackButton onClick={() => this.props.history.replace(`/groupquestions/${groupId}`)}/>
+                    <BackButton onClick={() => this.props.history.replace(`/administration/groupquestions/${groupId}`)}/>
 
                     <div>Question Answers</div>
 
-                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/questionanswer/create/${groupId}/${questionId}`)}/>
+                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/administration/questionanswer/create/${groupId}/${questionId}`)}/>
                 </ToolBar>
                 <Content>
                     <VerticalMenu
                         icon="baseline-person-24px.svg"
                         idField="Id"
                         captionField="Answer"
-                        defaultAction={(id) => this.props.history.push(`/questionanswer/edit/${groupId}/${id}`)}
+                        defaultAction={(id) => this.props.history.push(`/administration/questionanswer/edit/${groupId}/${id}`)}
                         menuActions={menuActions}
                         data={this.dataProvider.getByQuestion(questionId)}
                     />

@@ -1,41 +1,34 @@
 import Repository from "../Repository";
-import UsersRolesApi from "../../Api/UsersRoles";
-import UsersRoleDataRow from "../../Models/UsersRoleDataRow";
+import UsersApi from "../../Api/Users";
+import UserDataRow from "../../Models/UserDataRow";
 
-export class EVENT_TYPES {
-    static LOADED = "USERS_ROLES_LOADED";
-    static EXISTS = "USERS_ROLES_EXISTS";
-    static CREATED = "USERS_ROLES_CREATED";
-    static SAVED = "USERS_ROLES_SAVED";
-    static DELETED = "USERS_ROLES_DELETED";
-}
-
-
-class UsersRoles extends Repository {
+class Users extends Repository {
     constructor(){
         super();
 
-        this.Api = new UsersRolesApi();
+        this.Api = new UsersApi();
 
-        this.getAll        = this.getAll.bind(this);
+        this.getAllUsers        = this.getAllUsers.bind(this);
         this.saveChanges        = this.saveChanges.bind(this);
+        this.resetPassword      = this.resetPassword.bind(this);
+        this.onPasswordSaved    = this.onPasswordSaved.bind(this);
         this.onSaved            = this.onSaved.bind(this);
         this.onDeleted          = this.onDeleted.bind(this);
         this.createNew          = this.createNew.bind(this);
     }
 
-    getAll(){
+    getAllUsers(){
         if(this.rows.length == 0) {
             this.Api.getAll()
                 .then(results => {
                     for (let record of results) {
-                        let user = new UsersRoleDataRow(record);
+                        let user = new UserDataRow(record);
                         this.addRow(user);
                     }
-                    this.publishChanges(EVENT_TYPES.LOADED, this.getRows());
+                    this.publishChanges("USERS_LOADED", this.getRows());
                 });
         } else {
-            this.publishChanges(EVENT_TYPES.LOADED, this.getRows());
+            this.publishChanges("USERS_LOADED", this.getRows());
         }
     }
 
@@ -53,40 +46,51 @@ class UsersRoles extends Repository {
         }
     }
 
-    checkRoleExists(roleName){
-        this.Api.exists(roleName)
+    checkUserLoginExists(userLogin){
+        this.Api.userExists(userLogin)
 
         .then((response) =>{
-            this.publishChanges(EVENT_TYPES.EXISTS, response);
+            this.publishChanges("USER_EXISTS", response);
         });
     }
 
     createNew(fieldData){
-        let roleData = [];
-        roleData.push({name:"RoleName", value: fieldData.RoleName});
-        roleData.push({name:"Description", value: fieldData.Description});
+        let userData = [];
+        userData.push({name:"UserLogin", value: fieldData.UserLogin});
+        userData.push({name:"UserPassword", value: fieldData.UserPassword});
+        userData.push({name:"Email", value: fieldData.Email});
 
-        this.Api.create(roleData)
+        this.Api.create(userData)
         .then((response) =>{
             if(response.status == "success") {
                 const insertId = response.insertId;
 
                 const newUserData = {
-                    Id: insertId,
-                    RoleName: fieldData.RoleName,
-                    Description: fieldData.Description,
+                    UserId: insertId,
+                    UserLogin: fieldData.UserLogin,
+                    FirstName: '',
+                    LastName: '',
+                    Email: fieldData.Email,
+                    Role: ''
                 };
 
-                let newRow = new UsersRoleDataRow(newUserData);
+                let UserRow = new UserDataRow(newUserData);
 
-                this.addRow(newRow);
-                this.publishChanges(EVENT_TYPES.CREATED, insertId);
+                this.addRow(UserRow);
+                this.publishChanges("USER_CREATED", insertId);
             }
         });
     }
 
-    delete(roleId){
-        this.Api.delete(roleId)
+    resetPassword(userId, password){
+        this.Api.resetPassword(userId, password)
+            .then((response) =>{
+                this.onPasswordSaved(response);
+            });
+    }
+
+    delete(userId){
+        this.Api.delete(userId)
             .then((response) =>{
                 this.onDeleted(response);
             });
@@ -95,16 +99,25 @@ class UsersRoles extends Repository {
     onSaved(response) {
         if(response.status == 'error'){
             if(response.message =='ER_DUP_ENTRY') {
-                let field = user.getField("RoleName");
+                let field = user.getField("UserLogin");
                 field.isValid = false;
-                field.message = 'Role already exists';
+                field.message = 'Username already exists';
             } else {
 
             }
         }
 
         //order matters publish after updating repo
-        this.publishChanges(EVENT_TYPES.SAVED, response);
+        this.publishChanges("USER_SAVED", response);
+    }
+
+    onPasswordSaved(response) {
+        if(response.status == 'error'){
+            console.log(response.error);
+        }
+
+        //order matters publish before updating repo
+        this.publishChanges("PASSWORD_SAVED", response);
     }
 
     onDeleted(response) {
@@ -113,19 +126,19 @@ class UsersRoles extends Repository {
             return;
         }
 
-        const roleId = response.message;
+        const userId = response.message;
 
         for(let i=0;i<this.rows.length;i++){
             let r = this.rows[i];
 
-            if(r.fields["Id"].getValue() == roleId){
+            if(r.fields["UserId"].getValue() == userId){
                 this.rows.splice(i,1);
             }
         }
 
         //order matters publish before updating repo
-        this.publishChanges(EVENT_TYPES.DELETED, response.message);
+        this.publishChanges("USER_DELETED", response.message);
     }
 }
 
-export default UsersRoles;
+export default Users;

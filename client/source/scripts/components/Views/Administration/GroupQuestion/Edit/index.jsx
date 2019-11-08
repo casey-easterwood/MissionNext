@@ -3,11 +3,11 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import ModalConfirm from "../../../Elements/ModalConfirm";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
 
 class Edit extends Component {
     constructor(props) {
@@ -83,7 +83,7 @@ class Edit extends Component {
             <ModalConfirm
                 title={"Question Saved"}
                 message={"The Question was successfully saved,"}
-                confirm={() => this.props.history.push(`/groupquestions/${this.state.groupId}`)}
+                confirm={() => this.props.history.push(`/administration/groupquestions/${this.state.groupId}`)}
                 open={this.state.showSavedDialog}
             />
         )

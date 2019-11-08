@@ -3,13 +3,13 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import DataField from "../../../../Data/Models/DataField";
-import CandidateDataRow from "../../../../Data/Models/CandidateDataRow";
-import ModalConfirm from "../../../Elements/ModalConfirm";
+import DataField from "../../../../../Data/Models/DataField";
+import CandidateDataRow from "../../../../../Data/Models/CandidateDataRow";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
 
 class Create extends Component {
     dataProvider = window.dataProvider.candidates;
@@ -146,7 +146,7 @@ class Create extends Component {
                     />
 
                     <div className={styles.buttonGroup}>
-                        <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push('/candidates')} caption="Close"/>
+                        <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push('/administration/candidates')} caption="Close"/>
                         <LinkButton type='primary' href="#" onClick={this.checkNameAvailability} caption="Next"/>
                     </div>
                 </Form>

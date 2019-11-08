@@ -4,12 +4,12 @@
 
 import React, {Component} from 'react';
 import styles from "./styles.scss";
-import Main from "../../Elements/Layout/Main";
-import ToolBar from "../../Elements/ToolBar";
-import ToolbarButton from "../../Elements/ToolbarButton";
-import VerticalMenu from "../../Elements/VerticalMenu";
-import {BackButton} from "../../Elements/BackButton";
-import Content from "../../Elements/Layout/Content";
+import Main from "../../../Elements/Layout/Main";
+import ToolBar from "../../../Elements/ToolBar";
+import ToolbarButton from "../../../Elements/ToolbarButton";
+import VerticalMenu from "../../../Elements/VerticalMenu";
+import {BackButton} from "../../../Elements/BackButton";
+import Content from "../../../Elements/Layout/Content";
 
 class Index extends Component {
     dataProvider = window.dataProvider.JobCategories;
@@ -41,23 +41,23 @@ class Index extends Component {
     render(){
         let menuActions = [
             {   caption:"Edit Job Category",
-                onClick:(id) => this.props.history.push(`/jobcategory/edit/${id}`),
+                onClick:(id) => this.props.history.push(`/administration/jobcategory/edit/${id}`),
                 warning:false
             },
         ];
         return(
             <Main>
                 <ToolBar>
-                    <BackButton onClick={() => this.props.history.replace('/administration')}/>
+                    <BackButton onClick={() => this.props.history.replace('/administration/system')}/>
                     <h3>Job Categories</h3>
-                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push('/jobcategory/create')}/>
+                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push('/administration/jobcategory/create')}/>
                 </ToolBar>
                 <Content>
                 <VerticalMenu
                     icon="baseline-category-24px.svg"
                     idField="Id"
                     captionField="Name"
-                    defaultAction={(id) => this.props.history.push(`/jobcategory/edit/${id}`)}
+                    defaultAction={(id) => this.props.history.push(`/administration/jobcategory/edit/${id}`)}
                     menuActions={menuActions}
                     data={this.dataProvider.getRows()}
                 />

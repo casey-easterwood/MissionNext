@@ -3,17 +3,17 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
-import FormSection from '../../../Elements/FormSection';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
+import FormSection from '../../../../Elements/FormSection';
 import styles  from './styles.scss';
-import ModalConfirm from "../../../Elements/ModalConfirm";
-import QuestionButton from "../../../Elements/QuestionButton";
-import Modal from "../../../Elements/Modal";
-import VerticalNavMenu from "../../../Elements/VerticalNavMenu";
-import VerticalMenu from "../../../Elements/VerticalMenu";
-import Content from "../../../Elements/Layout/Content";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
+import QuestionButton from "../../../../Elements/QuestionButton";
+import Modal from "../../../../Elements/Modal";
+import VerticalNavMenu from "../../../../Elements/VerticalNavMenu";
+import VerticalMenu from "../../../../Elements/VerticalMenu";
+import Content from "../../../../Elements/Layout/Content";
 
 
 class Loader {
@@ -272,7 +272,7 @@ class Edit extends Component {
             <ModalConfirm
                 title={"Candidate Saved"}
                 message={"The Candidate was successfully saved,"}
-                confirm={() => this.props.history.push('/candidates')}
+                confirm={() => this.props.history.push('/administration/candidates')}
                 open={this.state.showSavedDialog}
             />
         )

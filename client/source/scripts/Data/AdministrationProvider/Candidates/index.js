@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import CandidatesApi from "../../Api/Candidates";
+import Repository from "../../Repository";
+import CandidatesApi from "../../AdministrationApi/Candidates";
 import CandidateDataRow from "../../Models/CandidateDataRow";
 
 class Candidates extends Repository {

@@ -1,4 +1,4 @@
-import Api from "../../Api/Api";
+import Api from "../../Api";
 
 class Index extends Api{
     constructor() {
@@ -68,8 +68,31 @@ class Index extends Api{
             .then(response => response.json())
     }
 
+    createDescription(data){
+        return fetch("/api/jobs/createDescription",{
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+            .then(response => response.json())
+    }
 
-
+    saveDescription(data){
+        return fetch("/api/jobs/saveDescription",{
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+            .then(response => response.json())
+    }
 
     static getInstance(){
         return new Index();

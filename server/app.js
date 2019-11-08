@@ -33,8 +33,6 @@ class App {
         this.express.set('view engine', 'handlebars');
     }
 
-
-
     registerRouteStatic(remoteRoute, localRoute){
         this.express.use(
             remoteRoute,

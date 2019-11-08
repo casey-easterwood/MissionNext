@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import CandidateProfileAnswersApi from "../../Api/CandidateProfileAnswers";
+import Repository from "../../Repository";
+import CandidateProfileAnswersApi from "../../AdministrationApi/CandidateProfileAnswers";
 import CandidateProfileAnswer from "../../Models/CandidateProfileAnswer";
 
 class Event_Types {

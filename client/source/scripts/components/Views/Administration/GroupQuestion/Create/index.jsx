@@ -3,12 +3,12 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import DataField from "../../../../Data/Models/DataField";
-import ModalConfirm from "../../../Elements/ModalConfirm";
+import DataField from "../../../../../Data/Models/DataField";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
 
 class Create extends Component {
     dataProvider = window.dataProvider.ProfileQuestions;
@@ -83,7 +83,7 @@ class Create extends Component {
             <ModalConfirm
                 title={"Question group created"}
                 message={"The Group was successfully created,"}
-                confirm={() => this.props.history.replace(`/groupquestions/${groupId}`)}
+                confirm={() => this.props.history.replace(`/administration/groupquestions/${groupId}`)}
                 open={this.state.showSavedDialog}
             />
         )

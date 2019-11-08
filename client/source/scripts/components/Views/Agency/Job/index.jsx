@@ -21,13 +21,13 @@ class Jobs extends Component {
                 <ToolBar>
                     <BackButton onClick={() => history.goBack()}/>
                     <h2>Jobs</h2>
-                    <ToolbarButton caption={'New'} onClick={() => history.push("/administration/job/create")}/>
+                    <ToolbarButton caption={'New'} onClick={() => history.push("/agency/job/create")}/>
                 </ToolBar>
                 <Content>
                     <Switch>
-                        <Route path={'/administration/job/view/:jobId'} component={View} />
-                        <Route path={'/administration/job/edit/:jobId'} component={Edit} />
-                        <Route path={'/administration/job/create'} component={Create} />
+                        <Route path={'/agency/job/view/:jobId'} component={View} />
+                        <Route path={'/agency/job/edit/:jobId'} component={Edit} />
+                        <Route path={'/agency/job/create'} component={Create} />
                     </Switch>
                 </Content>
             </Main>

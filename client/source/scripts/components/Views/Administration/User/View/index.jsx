@@ -3,7 +3,7 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
+import LinkButton from '../../../../Elements/LinkButton';
 import styles  from './styles.scss';
 
 class View extends Component {

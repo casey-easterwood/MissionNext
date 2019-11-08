@@ -3,6 +3,7 @@ import styles from './styles.scss';
 import ResponsiveMenu from 'react-responsive-navbar';
 import { Link, NavLink } from 'react-router-dom';
 import ReactDOM from "react-dom";
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -34,28 +35,13 @@ class Header extends Component {
                 menu={
                     <ul>
                         <li>
-                            <NavLink activeClassName={styles.active} to={"/administration/Home"}>
+                            <NavLink activeClassName={styles.active} to={"/agency/Home"}>
                                 Dashboard
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink activeClassName={styles.active} to={"/administration/agencies"}>
-                                Agencies
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink activeClassName={styles.active} to={"/administration/candidates"}>
-                                Candidates
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink activeClassName={styles.active} to={"/administration/jobs"}>
+                            <NavLink activeClassName={styles.active} to={"/agency/jobs"}>
                                 Jobs
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink activeClassName={styles.active} to={"/administration/system"}>
-                                Administration
                             </NavLink>
                         </li>
                         <li>

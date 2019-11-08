@@ -25,7 +25,7 @@ class Loader {
         this.load = this.load.bind(this);
         this.loadJob = this.loadJob.bind(this);
         this.loadDescription = this.loadDescription.bind(this);
-        this.loadCategories = this.loadCategories.bind(this);
+        this.loadQuestionGroups = this.loadQuestionGroups.bind(this);
     }
 
     load(){
@@ -60,18 +60,9 @@ class Loader {
                 getAnswers
             ];
 
-
             Promise.all(promises).then((results) => {
                 data.job = results[0];
-
-                if(results[1] == null){
-                    data.description.id = null;
-                    data.description.value = "";
-                } else {
-                    data.description.id = results[1].fields["Id"].getValue();
-                    data.description.value = results[1].fields["Description"].getValue();
-                }
-
+                data.description = results[1];
                 data.categories = results[2];
                 data.questionGroups = results[3];
                 data.questions = results[4];
@@ -150,16 +141,16 @@ class Loader {
 
             const handler = (event, data) => {
                 if (event == "PROFILE_QUESTION_GROUP_LOADED") {
-                    items = window.dataProvider.ProfileQuestionGroups.rows;
+                    items = window.dataProvider.profileQuestionGroups.rows;
 
-                    window.dataProvider.ProfileQuestionGroups.unsubscribe(this);
+                    window.dataProvider.profileQuestionGroups.unsubscribe(this);
 
                     resolve(items);
                 }
             };
 
-            window.dataProvider.ProfileQuestionGroups.subscribeToChanges(handler);
-            window.dataProvider.ProfileQuestionGroups.getAll();
+            window.dataProvider.profileQuestionGroups.subscribeToChanges(handler);
+            window.dataProvider.profileQuestionGroups.getAll();
         })
     }
 
@@ -169,16 +160,16 @@ class Loader {
 
             const handler = (event, data) => {
                 if (event == "QUESTIONS_LOADED") {
-                    items = window.dataProvider.ProfileQuestions.rows;
+                    items = window.dataProvider.profileQuestions.rows;
 
-                    window.dataProvider.ProfileQuestions.unsubscribe(this);
+                    window.dataProvider.profileQuestions.unsubscribe(this);
 
                     resolve(items);
                 }
             };
 
-            window.dataProvider.ProfileQuestions.subscribeToChanges(handler);
-            window.dataProvider.ProfileQuestions.getAll();
+            window.dataProvider.profileQuestions.subscribeToChanges(handler);
+            window.dataProvider.profileQuestions.getAll();
         })
     }
 
@@ -188,30 +179,26 @@ class Loader {
 
             const handler = (event, data) => {
                 if (event == "QUESTION_ANSWERS_LOADED") {
-                    items = window.dataProvider.ProfileQuestionsAnswers.rows;
+                    items = window.dataProvider.profileQuestionAnswers.rows;
 
-                    window.dataProvider.ProfileQuestionsAnswers.unsubscribe(this);
+                    window.dataProvider.profileQuestionAnswers.unsubscribe(this);
 
                     resolve(items);
                 }
             };
 
-            window.dataProvider.ProfileQuestionsAnswers.subscribeToChanges(handler);
-            window.dataProvider.ProfileQuestionsAnswers.getAll();
+            window.dataProvider.profileQuestionAnswers.subscribeToChanges(handler);
+            window.dataProvider.profileQuestionAnswers.getAll();
         })
     }
 }
 
 class Edit extends Component {
-    dataProvider = window.dataProvider.jobs;
-    categoriesProvider = window.dataProvider.JobCategories;
-    jobDescription = null;
 
     constructor(props) {
         super(props);
 
         this.providerHandler = this.providerHandler.bind(this);
-        this.onFieldChange = this.onFieldChange.bind(this);
         this.openCategoryDialog = this.openCategoryDialog.bind(this);
         this.closeCategoryDialog = this.closeCategoryDialog.bind(this);
         this.categoryDialog = this.categoryDialog.bind(this);
@@ -222,6 +209,7 @@ class Edit extends Component {
         this.closeAnswerDialog = this.closeAnswerDialog.bind(this);
         this.selectAnswer = this.selectAnswer.bind(this);
         this.answerDialog = this.answerDialog.bind(this);
+        this.onFieldChange = this.onFieldChange.bind(this);
         this.save = this.save.bind(this);
 
         this.state = {
@@ -264,8 +252,7 @@ class Edit extends Component {
 
         loader.load().then(data => {
             this.state.item = data.job;
-            this.state.DescriptionId = data.description.id;
-            this.state.Description.setValue(data.description.value);
+            this.state.description = data.description;
             this.state.categories = data.categories;
             this.state.questionGroups = data.questionGroups;
             this.state.questions = data.questions;
@@ -275,12 +262,11 @@ class Edit extends Component {
             this.setState(this.state);
         });
 
-        this.dataProvider.subscribeToChanges(this.providerHandler);
+        window.dataProvider.jobs.subscribeToChanges(this.providerHandler);
     }
 
     componentWillUnmount(){
-        this.dataProvider.unsubscribe(this.providerHandler);
-        this.categoriesProvider.unsubscribe(this.categoriesProviderHandler);
+        window.dataProvider.jobs.unsubscribe(this.providerHandler);
     }
 
     providerHandler(message, data){
@@ -292,25 +278,27 @@ class Edit extends Component {
     }
 
     onFieldChange(fieldName, value){
-        let field = this.state[fieldName];
-        field.setValue(value);
+        this.state.description.fields[fieldName].setValue(value);
 
-        this.setState(this.state);
+        this.setState({ description : this.state.description });
     }
 
     save(){
         if((new Date()).getTime() > this.state.debounce) {
             const {item} = this.state;
             let jobId = item.fields["Id"].getValue();
-            let description = this.state.Description.getValue();
+            let description = this.state.description.fields["Description"].getValue();
+
+            debugger;
 
             if(item.isDirty() && item.validate())
-                this.dataProvider.saveChanges();
+                window.dataProvider.jobs.saveChanges();
 
-            if(!this.state.DescriptionId)
-                this.dataProvider.createDescription(jobId, description);
+
+            if(this.state.description.fields["Id"].getValue() == 0)
+                window.dataProvider.jobs.createDescription(jobId, description);
             else
-                this.dataProvider.saveDescription(jobId, description);
+                window.dataProvider.jobs.saveDescription(jobId, description);
 
             this.setState({showSavedDialog:true});
         }
@@ -361,7 +349,6 @@ class Edit extends Component {
         this.state.selectedAnswers.push(answer);
         this.state.showAnswerDialog = false;
         this.setState(this.state);
-
     }
 
     answerDialog(){
@@ -406,7 +393,7 @@ class Edit extends Component {
     }
 
     render(){
-        const { item } = this.state;
+        const { item, description } = this.state;
 
         const CategoryDialog = this.categoryDialog;
         const SavedDialog = this.savedDialog;
@@ -460,9 +447,9 @@ class Edit extends Component {
                         <FormGroupTextArea
                             id={"JobDescription"}
                             label={"Job Description"}
-                            value={this.state.Description.getValue()}
-                            validationMessage={this.state.Description.getValidationMessage()}
-                            onChange={(e) => {this.onFieldChange("Description",e.target.value)}}
+                            value={description.fields['Description'].getValue()}
+                            validationMessage={description.fields['Description'].getValidationMessage()}
+                            onChange={(e) => this.onFieldChange("Description", e.target.value)}
                         />
                     </FormSection>
 

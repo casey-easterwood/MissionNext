@@ -234,7 +234,7 @@ class Edit extends Component {
             <ModalConfirm
                 title={"Job Saved"}
                 message={"The job was successfully saved,"}
-                confirm={() => this.props.history.replace(`/job/edit/${id}`)}
+                confirm={() => this.props.history.replace(`/administration/job/edit/${id}`)}
                 open={this.state.showSavedDialog}
             />
         )

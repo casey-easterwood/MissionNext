@@ -3,16 +3,12 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import FormSection from "../../../Elements/FormSection";
-import ModalConfirm from "../../../Elements/ModalConfirm";
-import VerticalMenu from "../../../Elements/VerticalMenu";
-import Modal from "../../../Elements/Modal";
-import ModalFullscreen from "../../../Elements/ModalFullscreen";
-
+import FormSection from "../../../../Elements/FormSection";
+import VerticalMenu from "../../../../Elements/VerticalMenu";
 
 class Loader {
     id = 0;
@@ -102,14 +98,9 @@ class Loader {
 }
 
 class View extends Component {
-    dataProvider = window.dataProvider.agencies;
-
     constructor(props) {
         super(props);
 
-        this.providerHandler = this.providerHandler.bind(this);
-        this.savedDialog = this.savedDialog.bind(this);
-        this.save = this.save.bind(this);
         this.state = {
             item: null,
             fullscreen: false,
@@ -121,10 +112,7 @@ class View extends Component {
     }
 
     componentDidMount(){
-        this.dataProvider.subscribeToChanges(this.providerHandler);
-
         const id = this.props.match.params.id;
-        let item = this.dataProvider.getRow(id);
 
         const loader = new Loader(id);
 
@@ -134,42 +122,8 @@ class View extends Component {
     }
 
     componentWillUnmount(){
-        this.dataProvider.unsubscribe(this.providerHandler);
     }
 
-    providerHandler(message, data){
-        if (message == "AGENCY_SAVED"){
-            this.state.showSavedDialog = true;
-        }
-
-        this.setState(this.state);
-    }
-
-    save(){
-        if((new Date()).getTime() > this.state.debounce) {
-            const {item} = this.state;
-
-            if(!item.validate()) return;
-
-            if(!item.isDirty())
-                this.providerHandler("AGENCY_SAVED", null);
-            else
-               this.dataProvider.saveChanges();
-        }
-
-        this.setState({debounce: (new Date()).getTime() + 3000});
-    }
-
-    savedDialog(){
-        return (
-            <ModalConfirm
-                title={"Agency Saved"}
-                message={"The Agency was successfully saved,"}
-                confirm={() => this.props.history.push('/agencies')}
-                open={this.state.showSavedDialog}
-            />
-        )
-    }
 
     render(){
         const { item } = this.state;
@@ -178,9 +132,8 @@ class View extends Component {
 
         return(
             <Fragment>
-            <SavedDialog />
                 {!this.state.loading &&
-                <Form save={this.save}>
+                <Form >
                     <FormSection justify="start">
                         <h3>Agency</h3>
                         <FormGroup
@@ -266,23 +219,23 @@ class View extends Component {
                     <FormSection>
                         <div className={styles.jobsToolbar}>
                             <h3>Jobs</h3>
-                            <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/job/create`)} caption="New"/>
+                            <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/job/create`)} caption="New"/>
                         </div>
                         <VerticalMenu
                             icon="baseline-work-24px.svg"
                             idField="Id"
                             captionField="Title"
-                            defaultAction={(id) => this.props.history.push(`/job/view/${id}`)}
+                            defaultAction={(id) => this.props.history.push(`/administration/job/view/${id}`)}
                             menuActions={[
-                                {caption:"Edit Job", onClick:(id) => this.props.history.push(`/job/edit/${id}`), warning:false},
-                                {caption:"View Job", onClick:(id) => this.props.history.push(`/job/view/${id}`), warning:false},
+                                {caption:"Edit Job", onClick:(id) => this.props.history.push(`/administration/job/edit/${id}`), warning:false},
+                                {caption:"View Job", onClick:(id) => this.props.history.push(`/administration/job/view/${id}`), warning:false},
                             ]}
                             data={this.state.jobs}
                         />
                     </FormSection>
 
                     <FormSection justify="end">
-                        <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/agency/edit/${item.getKey()}`)} caption="Edit"/>
+                        <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/agency/edit/${item.getKey()}`)} caption="Edit"/>
                         <LinkButton type={'secondary'} href="#" onClick={() => history.goBack()} caption="Close"/>
                     </FormSection>
                 </Form>

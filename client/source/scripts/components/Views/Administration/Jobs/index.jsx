@@ -3,15 +3,15 @@
  */
 
 import React, {Component} from 'react';
-import ToolBar from "../../Elements/ToolBar";
-import ToolbarButton from "../../Elements/ToolbarButton";
-import Main from "../../Elements/Layout/Main";
+import ToolBar from "../../../Elements/ToolBar";
+import ToolbarButton from "../../../Elements/ToolbarButton";
+import Main from "../../../Elements/Layout/Main";
 import {Switch, Route} from "react-router-dom";
-import VerticalMenu from "../../Elements/VerticalMenu";
-import VerticalNavMenu from "../../Elements/VerticalNavMenu";
-import {BackButton} from "../../Elements/BackButton";
+import VerticalMenu from "../../../Elements/VerticalMenu";
+import VerticalNavMenu from "../../../Elements/VerticalNavMenu";
+import {BackButton} from "../../../Elements/BackButton";
 import styles from "./styles.scss";
-import Content from "../../Elements/Layout/Content";
+import Content from "../../../Elements/Layout/Content";
 
 
 class JobList extends Component {
@@ -45,7 +45,7 @@ class JobList extends Component {
     }
 
     onClickItem(id){
-        this.props.history.push(`/job/view/${id}`);
+        this.props.history.push(`/administration/job/view/${id}`);
     }
 
     filterItems(){
@@ -81,8 +81,8 @@ class JobList extends Component {
 
     render(){
         let menuActions = [
-            {caption:"Edit Job", onClick:(id) => this.props.history.push(`/job/edit/${id}`), warning:false},
-            {caption:"View Job", onClick:(id) => this.props.history.push(`/job/view/${id}`), warning:false},
+            {caption:"Edit Job", onClick:(id) => this.props.history.push(`/administration/job/edit/${id}`), warning:false},
+            {caption:"View Job", onClick:(id) => this.props.history.push(`/administration/job/view/${id}`), warning:false},
         ];
 
         return(
@@ -232,13 +232,13 @@ class BrowseJobs extends Component {
                 <ToolBar>
                     <BackButton onClick={() => history.goBack()}/>
                     <h3>Browse Jobs</h3>
-                    <ToolbarButton caption={'New'} onClick={() => history.push("/job/create")}/>
+                    <ToolbarButton caption={'New'} onClick={() => history.push("/administration/job/create")}/>
                 </ToolBar>
                 <Content>
                     <Switch>
-                        <Route path={'/jobs/:category/:subcategory'} component={JobList} />
-                        <Route path={'/jobs/:category'} component={Category} />
-                        <Route path={'/jobs'} component={Categories} />
+                        <Route path={'/administration/jobs/:category/:subcategory'} component={JobList} />
+                        <Route path={'/administration/jobs/:category'} component={Category} />
+                        <Route path={'/administration/jobs'} component={Categories} />
                     </Switch>
                 </Content>
             </Main>

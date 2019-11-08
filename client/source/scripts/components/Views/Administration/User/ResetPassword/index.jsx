@@ -119,7 +119,7 @@ class ResetPassword extends Component {
             <ModalConfirm
                 title={"Password changed"}
                 message={"The User password was successfully saved,"}
-                confirm={() => this.props.history.push('/administration/users')}
+                confirm={() => this.props.history.push('/administration/administration/users')}
                 open={this.state.showSavedDialog}
             />
         )

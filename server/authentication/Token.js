@@ -16,6 +16,7 @@ module.exports.Token = function () {
         try {
             decoded = token.verify(signed, self.privateKey);
         } catch (e) {
+            console.log(e);
             decoded = false;
         }
 

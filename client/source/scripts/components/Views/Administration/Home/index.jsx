@@ -3,11 +3,11 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import Main from '../../Elements/Layout/Main';
+import Main from '../../../Elements/Layout/Main';
 import styles from './styles.scss'
-import VerticalMenu from "../../Elements/VerticalMenu";
-import Toolbar from "../../Elements/ToolBar";
-import ToolbarButton from "../../Elements/ToolbarButton";
+import VerticalMenu from "../../../Elements/VerticalMenu";
+import Toolbar from "../../../Elements/ToolBar";
+import ToolbarButton from "../../../Elements/ToolbarButton";
 
 class Loader {
     constructor(){
@@ -60,6 +60,7 @@ class Loader {
                 }
             };
 
+            debugger;
             window.dataProvider.agencies.subscribeToChanges(handler);
             window.dataProvider.agencies.getAll();
         })
@@ -133,10 +134,10 @@ class Index extends Component {
                             icon="baseline-person-24px.svg"
                             idField="Id"
                             captionField="Name"
-                            defaultAction={(id) => this.props.history.push(`/candidate/view/${id}`)}
+                            defaultAction={(id) => this.props.history.push(`/administration/candidate/view/${id}`)}
                             menuActions={[
-                                {caption:"Edit Candidate", onClick:(id) => this.props.history.push(`/candidate/edit/${id}`), warning:false},
-                                {caption:"View Candidate", onClick:(id) => this.props.history.push(`/candidate/view/${id}`), warning:false},
+                                {caption:"Edit Candidate", onClick:(id) => this.props.history.push(`/administration/candidate/edit/${id}`), warning:false},
+                                {caption:"View Candidate", onClick:(id) => this.props.history.push(`/administration/candidate/view/${id}`), warning:false},
                             ]}
                             data={candidates}
                         />
@@ -150,10 +151,10 @@ class Index extends Component {
                             icon="baseline-language-24px.svg"
                             idField="Id"
                             captionField="Name"
-                            defaultAction={(id) => this.props.history.push(`/agency/view/${id}`)}
+                            defaultAction={(id) => this.props.history.push(`/administration/agency/view/${id}`)}
                             menuActions={[
-                                {caption:"Edit Agency", onClick:(id) => this.props.history.push(`/agency/edit/${id}`), warning:false},
-                                {caption:"View Agency", onClick:(id) => this.props.history.push(`/agency/view/${id}`), warning:false},
+                                {caption:"Edit Agency", onClick:(id) => this.props.history.push(`/administration/agency/edit/${id}`), warning:false},
+                                {caption:"View Agency", onClick:(id) => this.props.history.push(`/administration/agency/view/${id}`), warning:false},
                             ]}
                             data={agencies}
                         />

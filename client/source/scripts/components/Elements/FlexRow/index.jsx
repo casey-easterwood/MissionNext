@@ -5,9 +5,9 @@
 import React, {Component} from 'react';
 import styles from './styles.scss';
 
-class FormSection extends Component {
+class FlexRow extends Component {
     render(){
-        const { justify, stretch } = this.props;
+        const { justify } = this.props;
         let componentStyle = [styles.section];
 
         if(justify == "start")
@@ -27,4 +27,4 @@ class FormSection extends Component {
     }
 }
 
-export default FormSection;
+export default FlexRow;

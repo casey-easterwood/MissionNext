@@ -1,44 +1,41 @@
-import React, {Component, createContext} from 'react';
+import React, {Component, createContext, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import {Redirect} from "react-router";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-import styles from '../styles/main.scss';
 //controllers
-import Login from './components/Views/Login';
-import Home from "./components/Views/Home";
-import Users from "./components/Views/Users";
-import User from "./components/Views/User";
-import Agencies from "./components/Views/Agencies";
-import Agency from "./components/Views/Agency";
-import Candidates from "./components/Views/Candidates";
-import Candidate from "./components/Views/Candidate"
-import Job from "./components/Views/Job";
-import Jobs from "./components/Views/Jobs";
-import Administration from "./components/Views/Administration";
-import ProfileQuestionGroups from "./components/Views/ProfileQuestionGroups";
-import ProfileQuestionGroup from "./components/Views/ProfileQuestionGroup";
-import GroupQuestions from "./components/Views/GroupQuestions"
-import GroupQuestion from "./components/Views/GroupQuestion"
-import QuestionAnswers from "./components/Views/QuestionAnswers";
-import QuestionAnswer from "./components/Views/QuestionAnswer";
-import JobCategories from "./components/Views/JobCategories";
-import JobCategory from "./components/Views/JobCategory";
-
-import Authentication from "./Data/Api/Authentication";
-import Layout from "./components/Views/Layout";
-import Main from "./components/Elements/Layout/Main"
-
-import Provider from "./Data/Provider";
-import Header from "./components/Elements/Menu";
+import Home from "./components/Views/Administration/Home";
+import Users from "./components/Views/Administration/Users";
+import User from "./components/Views/Administration/User";
+import Agencies from "./components/Views/Administration/Agencies";
+import Agency from "./components/Views/Administration/Agency";
+import Candidates from "./components/Views/Administration/Candidates";
+import Candidate from "./components/Views/Administration/Candidate"
+import Job from "./components/Views/Administration/Job";
+import Jobs from "./components/Views/Administration/Jobs";
+import ProfileQuestionGroups from "./components/Views/Administration/ProfileQuestionGroups";
+import ProfileQuestionGroup from "./components/Views/Administration/ProfileQuestionGroup";
+import GroupQuestions from "./components/Views/Administration/GroupQuestions"
+import GroupQuestion from "./components/Views/Administration/GroupQuestion"
+import QuestionAnswers from "./components/Views/Administration/QuestionAnswers";
+import QuestionAnswer from "./components/Views/Administration/QuestionAnswer";
+import JobCategories from "./components/Views/Administration/JobCategories";
+import JobCategory from "./components/Views/Administration/JobCategory";
+import SystemAdministration from "./components/Views/Administration/SystemAdministration"
+import Layout from "./components/Views/Administration/Layout";
+import Menu from "./components/Views/Administration/Menu";
 import Footer from "./components/Elements/Layout/Footer";
+import Provider from "./Data/AdministrationProvider";
 
-
-window.dataProvider = new Provider();
-
-class App extends Component{
+class Administration extends Component{
+    routeBase = "/administration";
+    
     constructor(props){
         super(props);
+
+        window.dataProvider = new Provider();
+
+        this.getAuth = this.getAuth.bind(this);
     }
 
     getAuth() {
@@ -70,34 +67,42 @@ class App extends Component{
         );
 
         return (
-            <Router>
-                <Switch>
+            <Layout auth={auth}>
+                {auth.Authenticated &&
+                    <Menu />
+                }
 
-                    <PrivateRoute exact path="/home"                    auth={auth} component={Home}  />
-                    <PrivateRoute exact path="/administration/users"    auth={auth} component={Users}/>
-                    <PrivateRoute       path="/user"                    auth={auth} component={User}/>
-                    <PrivateRoute exact path="/agencies"                auth={auth} component={Agencies}/>
-                    <PrivateRoute       path="/agency"                  auth={auth} component={Agency}/>
-                    <PrivateRoute exact path="/candidates"              auth={auth} component={Candidates}/>
-                    <PrivateRoute       path="/candidate"               auth={auth} component={Candidate}/>
-                    <PrivateRoute       path="/jobs"                    auth={auth} component={Jobs}/>
-                    <PrivateRoute       path="/job"                     auth={auth} component={Job}/>
-                    <PrivateRoute exact path="/profilequestiongroups"   auth={auth} component={ProfileQuestionGroups}/>
-                    <PrivateRoute       path="/profilequestiongroup"    auth={auth} component={ProfileQuestionGroup}/>
-                    <PrivateRoute exact path="/groupquestions/:id"      auth={auth} component={GroupQuestions}/>
-                    <PrivateRoute       path="/groupquestion"           auth={auth} component={GroupQuestion}/>
-                    <PrivateRoute       path="/questionanswers/:groupId/:questionId"    auth={auth} component={QuestionAnswers}/>
-                    <PrivateRoute       path="/questionanswer"          auth={auth} component={QuestionAnswer}/>
-                    <PrivateRoute exact path="/administration"          auth={auth} component={Administration}/>
-                    <PrivateRoute exact path="/administration/jobcategories"            auth={auth} component={JobCategories}/>
-                    <PrivateRoute       path="/jobcategory"             auth={auth} component={JobCategory}/>
+                <Switch>
+                    <Route exact path={`${this.routeBase}/home`}                    component={Home}  />
+                    <Route exact path={`${this.routeBase}/system/users`}            component={Users}/>
+                    <Route       path={`${this.routeBase}/system/user`}             component={User}/>
+                    <Route exact path={`${this.routeBase}/agencies`}                component={Agencies}/>
+                    <Route       path={`${this.routeBase}/agency`}                  component={Agency}/>
+                    <Route exact path={`${this.routeBase}/candidates`}              component={Candidates}/>
+                    <Route       path={`${this.routeBase}/candidate`}               component={Candidate}/>
+                    <Route       path={`${this.routeBase}/jobs` }                   component={Jobs}/>
+                    <Route       path={`${this.routeBase}/job`}                     component={Job}/>
+                    <Route exact path={`${this.routeBase}/profilequestiongroups`}   component={ProfileQuestionGroups}/>
+                    <Route       path={`${this.routeBase}/profilequestiongroup` }   component={ProfileQuestionGroup}/>
+                    <Route exact path={`${this.routeBase}/groupquestions/:id` }     component={GroupQuestions}/>
+                    <Route       path={`${this.routeBase}/groupquestion`}           component={GroupQuestion}/>
+                    <Route       path={`${this.routeBase}/questionanswers/:groupId/:questionId`}    component={QuestionAnswers}/>
+                    <Route       path={`${this.routeBase}/questionanswer`}          component={QuestionAnswer}/>
+                    <Route exact path={`${this.routeBase}/system` }                 component={SystemAdministration}/>
+                    <Route exact path={`${this.routeBase}/jobcategories`}           component={JobCategories}/>
+                    <Route       path={`${this.routeBase}/jobcategory` }            component={JobCategory}/>
                 </Switch>
-            </Router>
+
+                {auth.Authenticated &&
+                    <Footer>
+                        <span>Powered by MissionNext</span>
+                        <a href="https://newmissionnext.wpengine.com/" target="_blank">missionnext.org</a>
+                    </Footer>
+                }
+            </Layout>
+
         );
     }
 }
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);
+export default Administration

@@ -97,6 +97,55 @@ module.exports.Route = function (app) {
             })
     });
 
+    router.post('/saveDescription', function (req, res, next) {
+        let jobs = new JobsContext(app);
+        let fields = req.body;
+        let key = null;
+        let data = [];
+
+        fields.forEach((field) => {
+            if(field.name == 'JobId')
+                key = field.value;
+            else
+                data.push(field);
+        });
+
+        jobs.updateDescription(key, data)
+            .then(({results}) => {
+                let response = { status:'success', message: ''};
+                res.send(JSON.stringify(response));
+            })
+            .catch((error) => {
+                let response = { status:'error', message: error.code };
+                res.send(JSON.stringify(response));
+            });
+    });
+
+    router.post('/createDescription', function (req, res, next) {
+        let jobs = new JobsContext(app);
+        let fields = req.body;
+        let data = [];
+
+        console.log("Create New");
+
+        fields.forEach((field) => {
+            if(field.name != 'Id')
+                data.push(field);
+        });
+
+        jobs.createDescription(data)
+            .then(({results}) => {
+                let response = { status:'success', insertId: results.insertId };
+                res.send(JSON.stringify(response));
+            })
+            .catch((error) => {
+                console.log(error);
+                let response = { status:'error', message: error.code };
+                res.send(JSON.stringify(response));
+            });
+
+    });
+
     //List all available categories
     router.get('/listAllCategories', function (req, res, next) {
         let jobs = new JobCategories(app);

@@ -3,11 +3,11 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import ModalConfirm from "../../../Elements/ModalConfirm";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
 
 class EditQuestionScene extends Component {
     dataProvider = window.dataProvider.ProfileQuestionGroups;
@@ -84,7 +84,7 @@ class EditQuestionScene extends Component {
             <ModalConfirm
                 title={"Group Saved"}
                 message={"The Group was successfully saved,"}
-                confirm={() => this.props.history.push('/profilequestiongroups')}
+                confirm={() => this.props.history.push('/administration/profilequestiongroups')}
                 open={this.state.showSavedDialog}
             />
         )

@@ -4,11 +4,11 @@
 
 import React, {Component} from 'react';
 import styles from './styles.scss';
-import Main from '../../Elements/Layout/Main';
-import ToolBar from "../../Elements/ToolBar";
-import Content from "../../Elements/Layout/Content";
-import ToolbarButton from "../../Elements/ToolbarButton";
-import VerticalMenu from "../../Elements/VerticalMenu";
+import Main from '../../../Elements/Layout/Main';
+import ToolBar from "../../../Elements/ToolBar";
+import Content from "../../../Elements/Layout/Content";
+import ToolbarButton from "../../../Elements/ToolbarButton";
+import VerticalMenu from "../../../Elements/VerticalMenu";
 
 class Users extends Component {
     dataProvider = window.dataProvider.users;
@@ -71,10 +71,10 @@ class Users extends Component {
 
     render(){
         let menuActions = [
-            {caption:"Edit User", onClick:(id) => this.props.history.push(`/user/edit/${id}`), warning:false},
-            {caption:"View Profile", onClick:(id) => this.props.history.push(`/user/view/${id}`), warning:false},
-            {caption:"Change Password", onClick:(id) => this.props.history.push(`/user/resetpassword/${id}`), warning:false},
-            {caption:"Delete User", onClick:(id) => this.props.history.push(`/user/delete/${id}`), warning: true},
+            {caption:"Edit User", onClick:(id) => this.props.history.push(`/administration/system/user/edit/${id}`), warning:false},
+            {caption:"View Profile", onClick:(id) => this.props.history.push(`/administration/system/user/view/${id}`), warning:false},
+            {caption:"Change Password", onClick:(id) => this.props.history.push(`/administration/system/user/resetpassword/${id}`), warning:false},
+            {caption:"Delete User", onClick:(id) => this.props.history.push(`/administration/system/user/delete/${id}`), warning: true},
         ];
 
         return(
@@ -90,14 +90,14 @@ class Users extends Component {
                                className={styles.sidebarSearchInput}
                         />
                     </div>
-                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/user/create`)}/>
+                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/administration/system/user/create`)}/>
                 </ToolBar>
                 <Content>
                     <VerticalMenu
                         icon="baseline-person-24px.svg"
                         idField="UserId"
                         captionField="UserLogin"
-                        defaultAction={(id) => this.props.history.push(`/user/view/${id}`)}
+                        defaultAction={(id) => this.props.history.push(`/administration/system/user/view/${id}`)}
                         menuActions={menuActions}
                         data={this.getFilteredUsers()}
                     />

@@ -3,19 +3,19 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import FormSection from "../../../Elements/FormSection";
-import FormGroupButton from "../../../Elements/FormGroupButton";
-import FormGroupTextArea from "../../../Elements/FormGroupTextArea";
-import DataField from "../../../../Data/Models/DataField";
-import Modal from "../../../Elements/Modal"
-import ModalConfirm from "../../../Elements/ModalConfirm";
-import VerticalNavMenu from "../../../Elements/VerticalNavMenu";
-import QuestionButton from "../../../Elements/QuestionButton";
-import VerticalMenu from "../../../Elements/VerticalMenu";
+import FormSection from "../../../../Elements/FormSection";
+import FormGroupButton from "../../../../Elements/FormGroupButton";
+import FormGroupTextArea from "../../../../Elements/FormGroupTextArea";
+import DataField from "../../../../../Data/Models/DataField";
+import Modal from "../../../../Elements/Modal"
+import ModalConfirm from "../../../../Elements/ModalConfirm";
+import VerticalNavMenu from "../../../../Elements/VerticalNavMenu";
+import QuestionButton from "../../../../Elements/QuestionButton";
+import VerticalMenu from "../../../../Elements/VerticalMenu";
 
 class Loader {
     id = 0;

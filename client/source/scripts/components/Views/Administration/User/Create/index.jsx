@@ -3,12 +3,12 @@
  */
 
 import React, {Component} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import DataField from "../../../../Data/Models/DataField";
-import ModalConfirm from "../../../Elements/ModalConfirm";
+import DataField from "../../../../../Data/Models/DataField";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
 
 class Create extends Component {
     dataProvider = window.dataProvider.users;
@@ -233,7 +233,7 @@ class Create extends Component {
             <ModalConfirm
                 title={"User Saved"}
                 message={"The User was successfully saved,"}
-                confirm={() => this.props.history.replace(`/user/edit/${insertId}`)}
+                confirm={() => this.props.history.replace(`/administration/user/edit/${insertId}`)}
                 open={this.state.showSavedDialog}
             />
         )

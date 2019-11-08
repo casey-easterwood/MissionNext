@@ -3,13 +3,13 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import FormSection from "../../../Elements/FormSection";
-import ModalConfirm from "../../../Elements/ModalConfirm";
-import ModalFullscreen from "../../../Elements/ModalFullscreen";
+import FormSection from "../../../../Elements/FormSection";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
+import ModalFullscreen from "../../../../Elements/ModalFullscreen";
 
 class EditForm extends Component {
     dataProvider = window.dataProvider.agencies;

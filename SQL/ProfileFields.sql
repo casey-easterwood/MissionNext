@@ -1,6 +1,39 @@
 CREATE TABLE Profile_Fields (
     Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     PathwayId INT(6) NOT NULL DEFAULT 0,
+    IsMatchingField INT(6) NOT NULL DEFAULT 0,
     Name varchar(50) NOT NULL,
     Type INT(6) NOT NULL DEFAULT 0
+)
+
+CREATE TABLE Candidate_Profile_Fields (
+    Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    FieldId INT(6) NOT NULL DEFAULT 0,
+    FieldName VARCHAR(50)
+)
+
+CREATE TABLE Agency_Profile_Fields (
+  Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  FieldId INT(6) NOT NULL DEFAULT 0,
+  FieldName VARCHAR(50)
+)
+
+CREATE TABLE Profile_Dictionary (
+    Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    Name varchar(50) NOT NULL
+)
+
+CREATE TABLE Profile_Dictionary_Items (
+    Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    DictionaryId INT(6) NOT NULL DEFAULT 0,
+    GroupName varchar(50),
+    Name varchar(50) NOT NULL,
+    ImportId INT(6) NOT NULL DEFAULT 0
+)
+
+CREATE TABLE Profile_Fields_Dictionary (
+    Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    FieldId INT(6) NOT NULL DEFAULT 0,
+    DictionaryId INT(6) NOT NULL DEFAULT 0,
+    ImportId INT(6) NOT NULL DEFAULT 0
 )

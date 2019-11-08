@@ -3,6 +3,7 @@
  */
 
 import React, {Component} from 'react';
+import Select from 'react-select';
 import styles from './styles.scss';
 
 class FormGroup extends Component {
@@ -20,19 +21,19 @@ class FormGroup extends Component {
             else
                 return "";
         };
+
         return(
             <div className={styles.formGroup}>
                 <label htmlFor={this.props.id}>
                     {this.props.label}
                 </label>
 
-                <input id={this.props.id}
-                       name={this.props.id}
-                       type={this.props.type || "text"}
-                       readOnly={this.props.readOnly}
-                       value={this.props.value}
-                       onChange={this.props.onChange}
+                <Select
+                    value={this.props.value}
+                    onChange={this.props.onChange}
+                    options={this.props.options}
                 />
+
                 <ValidationMessage/>
             </div>
         )

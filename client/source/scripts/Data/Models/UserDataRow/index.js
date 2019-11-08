@@ -22,7 +22,11 @@ class UserDataRow extends DataRow{
         this.addField(new DataField("FirstName", "string", data["FirstName"], false));
         this.addField(new DataField("LastName", "string", data["LastName"], false));
         this.addField(new DataField("Email", "string", data["Email"], false));
-        this.addField(new DataField("Role", "string", data["Role"], false));
+        this.addField(new DataField("RoleName", "string", data["RoleName"], false));
+        this.addField(new DataField("RoleId", "number", data["RoleId"], false));
+        this.addField(new DataField("EntityId", "number", data["EntityId"], false));
+        this.addField(new DataField("EntityName", "string", data["EntityName"], false));
+
     }
 
     addValidation(){
@@ -31,7 +35,7 @@ class UserDataRow extends DataRow{
         this.validators["FirstName"] = new FieldValidator();
         this.validators["LastName"] = new FieldValidator();
         this.validators["Email"] = new FieldValidator();
-        this.validators["Role"] = new FieldValidator();
+        this.validators["RoleName"] = new FieldValidator();
 
         this.validators["UserId"].addRule(new ValidationRule("required", true, "Required field."));
 
@@ -53,7 +57,7 @@ class UserDataRow extends DataRow{
         this.validators["Email"].addRule(
             new ValidationRule("maxlength",100,"Requires less than 50 characters."));
 
-        this.validators["Role"].addRule(
+        this.validators["RoleName"].addRule(
             new ValidationRule("maxlength",50,"Requires less than 50 characters."));
 
     }

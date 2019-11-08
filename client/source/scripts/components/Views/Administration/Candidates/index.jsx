@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from "react";
-import Main from '../../Elements/Layout/Main';
+import Main from '../../../Elements/Layout/Main';
 import styles from './styles.scss';
-import ToolBar from "../../Elements/ToolBar";
-import ToolbarButton from "../../Elements/ToolbarButton";
-import VerticalMenu from "../../Elements/VerticalMenu";
-import Content from "../../Elements/Layout/Content";
+import ToolBar from "../../../Elements/ToolBar";
+import ToolbarButton from "../../../Elements/ToolbarButton";
+import VerticalMenu from "../../../Elements/VerticalMenu";
+import Content from "../../../Elements/Layout/Content";
 
 class Candidates extends Component {
     //mode search, edit, view, creat
@@ -58,8 +58,8 @@ class Candidates extends Component {
 
     render(){
         let menuActions = [
-            {caption:"Edit Candidate", onClick:(id) => this.props.history.push(`/candidate/edit/${id}`), warning:false},
-            {caption:"View Candidate", onClick:(id) => this.props.history.push(`/candidate/view/${id}`), warning:false},
+            {caption:"Edit Candidate", onClick:(id) => this.props.history.push(`/administration/candidate/edit/${id}`), warning:false},
+            {caption:"View Candidate", onClick:(id) => this.props.history.push(`/administration/candidate/view/${id}`), warning:false},
         ];
 
         let style = {
@@ -81,14 +81,14 @@ class Candidates extends Component {
                         />
                     </div>
                     <h2>Candidates</h2>
-                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/candidate/create`)}/>
+                    <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/administration/candidate/create`)}/>
                 </ToolBar>
                 <Content>
                     <VerticalMenu
                         icon="baseline-person-24px.svg"
                         idField="Id"
                         captionField="Name"
-                        defaultAction={(id) => this.props.history.push(`/candidate/view/${id}`)}
+                        defaultAction={(id) => this.props.history.push(`/administration/candidate/view/${id}`)}
                         menuActions={menuActions}
                         data={this.filterItems()}
                     />

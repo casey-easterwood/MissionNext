@@ -1,5 +1,5 @@
-import Repository from "../../Provider/Repository";
-import JobsApi from "../../Api/Jobs";
+import Repository from "../../Repository";
+import JobsApi from "../../AdministrationApi/Jobs";
 import JobCategory from "../../Models/JobCategory";
 
 class JobCategories extends Repository {

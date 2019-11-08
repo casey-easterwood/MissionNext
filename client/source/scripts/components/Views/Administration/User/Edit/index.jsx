@@ -3,18 +3,18 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
-import FormGroupSelect from '../../../Elements/FormGroupSelect';
-import FormSection from "../../../Elements/FormSection";
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
+import FormGroupSelect from '../../../../Elements/FormGroupSelect';
+import FormSection from "../../../../Elements/FormSection";
 import styles  from './styles.scss';
-import {BackButton} from "../../../Elements/BackButton";
-import ModalConfirm from "../../../Elements/ModalConfirm";
-import {EVENT_TYPES} from "../../../../Data/Provider/UsersRoles";
-import FormGroupButton from "../../../Elements/FormGroupButton";
-import Modal from "../../../Elements/Modal";
-import VerticalNavMenu from "../../../Elements/VerticalNavMenu";
+import {BackButton} from "../../../../Elements/BackButton";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
+import {EVENT_TYPES} from "../../../../../Data/AdministrationProvider/UsersRoles";
+import FormGroupButton from "../../../../Elements/FormGroupButton";
+import Modal from "../../../../Elements/Modal";
+import VerticalNavMenu from "../../../../Elements/VerticalNavMenu";
 import AgenciesSearchModal from "../../AgenciesSearchModal";
 import CandidatesSearchModal from "../../CandidatesSearchModal"
 

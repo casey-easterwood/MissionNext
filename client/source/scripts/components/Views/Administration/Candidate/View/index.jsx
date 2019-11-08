@@ -3,17 +3,17 @@
  */
 
 import React, {Component, Fragment} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
-import FormSection from '../../../Elements/FormSection';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
+import FormSection from '../../../../Elements/FormSection';
 import styles  from './styles.scss';
-import ModalConfirm from "../../../Elements/ModalConfirm";
-import QuestionButton from "../../../Elements/QuestionButton";
-import Modal from "../../../Elements/Modal";
-import VerticalNavMenu from "../../../Elements/VerticalNavMenu";
-import VerticalMenu from "../../../Elements/VerticalMenu";
-import Content from "../../../Elements/Layout/Content";
+import ModalConfirm from "../../../../Elements/ModalConfirm";
+import QuestionButton from "../../../../Elements/QuestionButton";
+import Modal from "../../../../Elements/Modal";
+import VerticalNavMenu from "../../../../Elements/VerticalNavMenu";
+import VerticalMenu from "../../../../Elements/VerticalMenu";
+import Content from "../../../../Elements/Layout/Content";
 
 
 class Loader {
@@ -375,7 +375,7 @@ class View extends Component {
                         )}
 
                         <FormSection justify="end">
-                            <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/candidate/edit/${item.getKey()}`)} caption="Edit"/>
+                            <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/candidate/edit/${item.getKey()}`)} caption="Edit"/>
                             <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.goBack()}  caption="Close"/>
                         </FormSection>
                     </Form>

@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import AgenciesApi from "../../Api/Agencies";
+import Repository from "../../Repository";
+import AgenciesApi from "../../AdministrationApi/Agencies";
 import AgencyDataRow from "../../Models/AgencyDataRow";
 import CandidateDataRow from "../../Models/CandidateDataRow";
 

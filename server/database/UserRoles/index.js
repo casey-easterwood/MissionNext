@@ -1,6 +1,6 @@
 const { Query } = require('../Query');
 
-class AgenciesContext {
+class UsersRoles {
     constructor(app){
         this.database = app.database;
 
@@ -13,7 +13,7 @@ class AgenciesContext {
     }
 
     listAll(){
-        let sql = 'SELECT * FROM Agencies ORDER BY Name';
+        let sql = 'SELECT * FROM users_roles ORDER BY RoleName';
         let values = [];
         let query = new Query(sql, values);
 
@@ -31,7 +31,7 @@ class AgenciesContext {
     }
 
     get(id) {
-        let sql = 'SELECT * FROM Agencies where Id = ?';
+        let sql = 'SELECT * FROM users_roles where Id = ?';
         let values = [id];
         let query = new Query(sql, values);
 
@@ -53,7 +53,7 @@ class AgenciesContext {
     };
 
     exists(name) {
-        let sql = 'SELECT Name FROM Agencies where Name = ?';
+        let sql = 'SELECT Name FROM users_roles where Name = ?';
         let values = [name];
         let query = new Query(sql, values);
 
@@ -76,7 +76,7 @@ class AgenciesContext {
     };
 
     create(data) {
-        let sql = 'INSERT INTO Agencies (%fields%) VALUES (%values%)';
+        let sql = 'INSERT INTO users_roles (%fields%) VALUES (%values%)';
 
         let values = [];
         let fields = [];
@@ -109,7 +109,7 @@ class AgenciesContext {
     };
 
     update(id, data) {
-        let sql = 'UPDATE Agencies set ';
+        let sql = 'UPDATE users_roles set ';
 
         let values = [];
 
@@ -137,7 +137,7 @@ class AgenciesContext {
     };
 
     delete(id) {
-        let sql = 'DELETE from Agencies WHERE Id = ?';
+        let sql = 'DELETE from users_roles WHERE Id = ?';
         let values = [id];
         let query = new Query(sql, values);
 
@@ -156,4 +156,4 @@ class AgenciesContext {
 
 }
 
-module.exports = AgenciesContext;
+module.exports = UsersRoles;

@@ -1,5 +1,5 @@
-import Repository from "../../Provider/Repository";
-import Api from "../../Api/AgencyProfileQuestionGroups";
+import Repository from "../../Repository";
+import Api from "../../AgencyApi/ProfileQuestionGroups";
 import Model from "../../Models/ProfileQuestionGroup";
 
 class ProfileQuestionGroups extends Repository {

@@ -1,25 +1,12 @@
 @import "../../../../styles/settings";
 
 .section {
-  position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
   width: 80vw;
   padding: 0 10px 20px 10px;
   margin: 5px;
-
-  h3 {
-    box-sizing: border-box;
-    color: map_get($color-black-map, "black-80");
-    display: block;
-    width: 100%;
-    text-align: left;
-    margin: 0;
-    padding: 5px;
-    border-bottom: 1px solid map_get($color-black-map, "black-20");
-  }
 }
 
 .justifyStart{
@@ -36,5 +23,4 @@
 
 .stretch{
   justify-content: stretch;
-  align-items: stretch;
 }

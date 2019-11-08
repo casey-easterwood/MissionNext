@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from "react";
-import Main from '../../Elements/Layout/Main';
+import Main from '../../../Elements/Layout/Main';
 import styles from './styles.scss';
-import ToolBar from "../../Elements/ToolBar";
-import ToolbarButton from "../../Elements/ToolbarButton";
-import VerticalMenu from "../../Elements/VerticalMenu";
-import Content from "../../Elements/Layout/Content";
-import Modal from "../../Elements/Modal";
+import ToolBar from "../../../Elements/ToolBar";
+import ToolbarButton from "../../../Elements/ToolbarButton";
+import VerticalMenu from "../../../Elements/VerticalMenu";
+import Content from "../../../Elements/Layout/Content";
+import Modal from "../../../Elements/Modal";
 
 class Candidates extends Component {
     //mode search, edit, view, creat

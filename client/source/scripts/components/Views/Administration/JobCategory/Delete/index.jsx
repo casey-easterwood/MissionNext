@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import LinkButton from '../../../Elements/LinkButton';
-import Form from '../../../Elements/Form';
-import FormGroup from '../../../Elements/FormGroup';
+import LinkButton from '../../../../Elements/LinkButton';
+import Form from '../../../../Elements/Form';
+import FormGroup from '../../../../Elements/FormGroup';
 import styles  from './styles.scss';
-import {BackButton} from "../../../Elements/BackButton";
-import DataField from "../../../../Data/Models/DataField";
+import {BackButton} from "../../../../Elements/BackButton";
+import DataField from "../../../../../Data/Models/DataField";
 
 class Delete extends Component {
     constructor(props) {

@@ -10,6 +10,8 @@ CREATE TABLE Agencies (
     Phone varchar(25) DEFAULT '',
     Website varchar(25) DEFAULT '',
     Status int(1) NOT NULL DEFAULT 0,
-    Created INT(8) NOT NULL
+    Created INT(8) NOT NULL,
+    ImportId INT(8) NOT NULL,
+    OwnerUserId INT(8) NOT NULL
 )
 

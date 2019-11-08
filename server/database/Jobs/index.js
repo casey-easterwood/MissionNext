@@ -58,8 +58,8 @@ class JobsContext {
             'JobCategories.Name as Category ' +
             'FROM Jobs left join JobCategories ' +
             'on (Jobs.CategoryId = JobCategories.Id) ' +
-            'ORDER BY Title ' +
-            'WHERE Jobs.AgencyId = ?';
+            'WHERE Jobs.AgencyId = ? ' +
+            'ORDER BY Title ';
 
         let values = [agencyId];
         let query = new Query(sql, values);

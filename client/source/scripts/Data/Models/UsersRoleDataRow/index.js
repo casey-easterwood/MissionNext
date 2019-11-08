@@ -17,44 +17,26 @@ class UserDataRow extends DataRow{
     }
 
     addFields(data){
-        this.addField(new DataField("UserId", "number", data["UserId"], true));
-        this.addField(new DataField("UserLogin", "string", data["UserLogin"], false));
-        this.addField(new DataField("FirstName", "string", data["FirstName"], false));
-        this.addField(new DataField("LastName", "string", data["LastName"], false));
-        this.addField(new DataField("Email", "string", data["Email"], false));
-        this.addField(new DataField("Role", "string", data["Role"], false));
+        this.addField(new DataField("Id", "number", data["Id"], true));
+        this.addField(new DataField("RoleName", "string", data["RoleName"], false));
+        this.addField(new DataField("Description", "string", data["Description"], false));
     }
 
     addValidation(){
-        this.validators["UserId"] = new FieldValidator();
-        this.validators["UserLogin"] = new FieldValidator();
-        this.validators["FirstName"] = new FieldValidator();
-        this.validators["LastName"] = new FieldValidator();
-        this.validators["Email"] = new FieldValidator();
-        this.validators["Role"] = new FieldValidator();
+        this.validators["Id"] = new FieldValidator();
+        this.validators["RoleName"] = new FieldValidator();
+        this.validators["Description"] = new FieldValidator();
 
-        this.validators["UserId"].addRule(new ValidationRule("required", true, "Required field."));
+        this.validators["Id"].addRule(new ValidationRule("required", true, "Required field."));
 
-        this.validators["UserLogin"].addRule(
+        this.validators["RoleName"].addRule(
             new ValidationRule("minlength",4,"Requires more than 5 characters."));
 
-        this.validators["UserLogin"].addRule(
+        this.validators["RoleName"].addRule(
             new ValidationRule("maxlength",50,"Requires less than 50 characters."));
 
-        this.validators["FirstName"].addRule(
-            new ValidationRule("maxlength",50,"Requires less than 50 characters."));
-
-        this.validators["LastName"].addRule(
-            new ValidationRule("maxlength",50,"Requires less than 50 characters."));
-
-        this.validators["Email"].addRule(
-            new ValidationRule("minlength",5,"Requires more than 5 characters."));
-
-        this.validators["Email"].addRule(
+        this.validators["Description"].addRule(
             new ValidationRule("maxlength",100,"Requires less than 50 characters."));
-
-        this.validators["Role"].addRule(
-            new ValidationRule("maxlength",50,"Requires less than 50 characters."));
 
     }
 

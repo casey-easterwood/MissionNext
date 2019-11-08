@@ -22,9 +22,9 @@ class Login extends Component {
             if(this.props.auth.RoleId == '1')
                 return <Redirect to="/administration/home" />;
             else if(this.props.auth.RoleId == '2')
-                return <Redirect to="/administration/home" />;
+                return <Redirect to="/candidate/home" />;
             else if(this.props.auth.RoleId == '3')
-                return <Redirect to="/administration/home" />;
+                return <Redirect to="/agency/home" />;
 
         } else {
             return(<LoginForm authenticate={this.props.authenticate} message={this.props.loginMessage} />);

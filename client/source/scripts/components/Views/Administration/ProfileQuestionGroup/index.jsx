@@ -20,12 +20,12 @@ class ProfileQuestionGroup extends Component {
                 <ToolBar>
                     <BackButton onClick={() => history.goBack()}/>
                     <h3>Question Groups</h3>
-                    <ToolbarButton caption={'New'} onClick={() => history.push("/profilequestiongroup/create")}/>
+                    <ToolbarButton caption={'New'} onClick={() => history.push("/administration/profilequestiongroup/create")}/>
                 </ToolBar>
                 <Content>
                     <Switch>
-                        <Route path={'/profilequestiongroup/edit/:id'} component={Edit} />
-                        <Route path={'/profilequestiongroup/create'} component={Create} />
+                        <Route path={'/administration/profilequestiongroup/edit/:id'} component={Edit} />
+                        <Route path={'/administration/profilequestiongroup/create'} component={Create} />
                     </Switch>
                 </Content>
             </Main>

@@ -1,4 +1,4 @@
-import Api from "../Api";
+import Api from "../../Api";
 
 class ProfileQuestions extends Api{
     basePath = "/api/profile/questions/";

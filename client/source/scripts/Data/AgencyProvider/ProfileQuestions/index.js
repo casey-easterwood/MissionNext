@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import Api from "../../AdministrationApi/ProfileQuestions";
+import Repository from "../../Repository";
+import Api from "../../AgencyApi/ProfileQuestions";
 import Model from "../../Models/ProfileQuestion";
 import ProfileQuestionGroup from "../../Models/ProfileQuestionGroup";
 
@@ -11,8 +11,6 @@ class ProfileQuestions extends Repository {
 
         this.getAll = this.getAll.bind(this);
         this.getByGroup = this.getByGroup.bind(this);
-        this.saveChanges = this.saveChanges.bind(this);
-        this.onSaved = this.onSaved.bind(this);
     }
 
     getAll(){
@@ -41,54 +39,6 @@ class ProfileQuestions extends Repository {
         }
 
         return filtered;
-    }
-
-    saveChanges(){
-        for(let r of this.rows){
-            if(r.isDirty()){
-                let fieldData = r.getChanges();
-
-                this.Api.update(fieldData)
-                    .then((response) =>{
-                        r.markClean();
-                        this.onSaved(response);
-                    });
-            } else {
-                this.publishChanges("PROFILE_QUESTION_SAVED", null);
-            }
-        }
-    }
-
-    onSaved(response) {
-        if(response.status == 'error'){
-            console.log(JSON.stringify(response));
-        }
-
-        //order matters publish before updating repo
-        this.publishChanges("PROFILE_QUESTION_SAVED", response);
-    }
-
-
-    create(fieldData){
-
-        this.Api.create(fieldData)
-        .then((response) =>{
-            if(response.status == "success"){
-                const insertId = response.insertId;
-
-                const newItemData = {
-                    Id: insertId,
-                    GroupId:fieldData[1].value,
-                    Question:fieldData[0].value,
-                };
-
-                let newRow = new Model(newItemData);
-
-                window.dataProvider.ProfileQuestions.addRow(newRow);
-            }
-
-            this.publishChanges("PROFILE_QUESTION_CREATED", response);
-        });
     }
 }
 

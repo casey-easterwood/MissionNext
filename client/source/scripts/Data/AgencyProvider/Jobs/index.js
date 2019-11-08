@@ -1,5 +1,5 @@
-import Repository from "../../Provider/Repository";
-import AgencyJobsApi from "../../Api/AgencyJobs";
+import Repository from "../../Repository";
+import AgencyJobsApi from "../../AgencyApi/Jobs";
 import JobsDataRow from "../../Models/JobsDataRow";
 import JobDescription from "../../Models/JobDescription";
 // import JobDescription from "../../Models/JobDescription";
@@ -91,6 +91,32 @@ class Jobs extends Repository {
                     this.publishChanges("JOB_DESCRIPTION_LOADED", records[0]);
                 else
                     this.publishChanges("JOB_DESCRIPTION_LOADED", null);
+            });
+    }
+
+    createDescription(jobId, description){
+        let fieldData = [
+            {name:"JobId", value:jobId},
+            {name:"Description", value:description}
+        ];
+
+        this.Api.createDescription(fieldData)
+            .then((response) =>{
+                const insertId = response.insertId;
+
+                this.publishChanges("JOB_DESCRIPTION_CREATED", insertId);
+            });
+    }
+
+    saveDescription(jobId, description){
+        let fieldData = [
+            {name:"JobId", value:jobId},
+            {name:"Description", value:description}
+        ];
+
+        this.Api.saveDescription(fieldData)
+            .then((response) =>{
+                this.publishChanges("JOB_DESCRIPTION_SAVED", response);
             });
     }
 

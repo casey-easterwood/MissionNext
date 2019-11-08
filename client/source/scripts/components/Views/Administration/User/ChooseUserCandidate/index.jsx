@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from "react";
 import styles from './styles.scss';
-import VerticalMenu from "../../../Elements/VerticalMenu";
-import FormGroup from "../../../Elements/FormGroup";
-import FormSection from "../../../Elements/FormSection";
-import Modal from "../../../Elements/Modal";
-import VerticalNavMenu from "../../../Elements/VerticalNavMenu";
+import VerticalMenu from "../../../../Elements/VerticalMenu";
+import FormGroup from "../../../../Elements/FormGroup";
+import FormSection from "../../../../Elements/FormSection";
+import Modal from "../../../../Elements/Modal";
+import VerticalNavMenu from "../../../../Elements/VerticalNavMenu";
 
 class Candidates extends Component {
     //mode search, edit, view, creat
@@ -78,7 +78,7 @@ class Candidates extends Component {
                     icon="baseline-person-24px.svg"
                     idField="Id"
                     captionField="Name"
-                    defaultAction={(id) => this.props.history.push(`/candidate/view/${id}`)}
+                    defaultAction={(id) => this.props.history.push(`/administration/candidate/view/${id}`)}
                     data={this.filterItems()}
                 />
             </Fragment>

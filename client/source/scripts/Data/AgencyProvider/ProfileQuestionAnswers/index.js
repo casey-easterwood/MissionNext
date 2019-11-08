@@ -11,10 +11,7 @@ class ProfileQuestionAnswers extends Repository {
         this.Api = new Api();
 
         this.getAll = this.getAll.bind(this);
-        this.saveChanges = this.saveChanges.bind(this);
-        this.onSaved = this.onSaved.bind(this);
         this.getByQuestion = this.getByQuestion.bind(this);
-        this.create = this.create.bind(this);
     }
 
     getAll() {
@@ -45,48 +42,6 @@ class ProfileQuestionAnswers extends Repository {
         return filtered;
     }
 
-    saveChanges(){
-        for(let r of this.rows){
-            if(r.isDirty()){
-                let fieldData = r.getChanges();
-
-                this.Api.update(fieldData)
-                    .then((response) =>{
-                        r.markClean();
-                        this.onSaved(response);
-                    });
-            } else {
-                this.publishChanges("PROFILE_QUESTION_ANSWER_SAVED", r);
-            }
-        }
-    }
-
-    onSaved(response) {
-        if(response.status == 'error'){
-            console.log(JSON.stringify(response));
-        }
-
-        //order matters publish before updating repo
-        this.publishChanges("PROFILE_QUESTION_ANSWER_SAVED", response);
-    }
-
-    create(fieldData){
-        this.Api.create(fieldData)
-        .then((response) =>{
-            const insertId = response.insertId;
-
-            const newRowData = {
-                Id: insertId,
-                QuestionId: fieldData[1].value,
-                Answer: fieldData[0].value
-            };
-
-            let newRow = new ProfileQuestionAnswer(newRowData);
-
-            this.addRow(newRow);
-            this.publishChanges("PROFILE_QUESTION_ANSWER_CREATED", response);
-        });
-    }
 }
 
 export default ProfileQuestionAnswers;

@@ -1,14 +1,14 @@
 import React, {Component} from "react";
-import Main from "../../Elements/Layout/Main";
-import ToolBar from "../../Elements/ToolBar";
-import {BackButton} from "../../Elements/BackButton";
-import ToolbarButton from "../../Elements/ToolbarButton";
+import Main from "../../../Elements/Layout/Main";
+import ToolBar from "../../../Elements/ToolBar";
+import {BackButton} from "../../../Elements/BackButton";
+import ToolbarButton from "../../../Elements/ToolbarButton";
 import {Route, Switch} from "react-router";
 // import View from "./View"
 import Edit from "./Edit"
 import Create from "./Create"
 import Delete from "./Delete"
-import Content from "../../Elements/Layout/Content";
+import Content from "../../../Elements/Layout/Content";
 
 class JobCategory extends Component {
     constructor(props) {

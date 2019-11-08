@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import JobsApi from "../../Api/Jobs";
+import Repository from "../../Repository";
+import JobsApi from "../../AdministrationApi/Jobs";
 import JobsDataRow from "../../Models/JobsDataRow";
 import JobDescription from "../../Models/JobDescription";
 

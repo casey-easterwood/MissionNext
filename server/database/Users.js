@@ -6,7 +6,19 @@ module.exports.Users = function (app) {
     let database = app.database;
 
     users.getAll = function () {
-        let sql = 'SELECT UserId, UserLogin, FirstName, LastName, Email, Role FROM users_main ORDER BY UserLogin';
+        let sql = 'SELECT ' +
+            'UserId, ' +
+            'UserLogin, ' +
+            'FirstName, ' +
+            'LastName, ' +
+            'Email, ' +
+            'RoleName, ' +
+            'RoleId, ' +
+            'EntityId, ' +
+            'EntityName ' +
+            'FROM users_main ' +
+            'ORDER BY UserLogin';
+
         let values = [];
         let query = new Query(sql, values);
 
@@ -33,7 +45,19 @@ module.exports.Users = function (app) {
      * @returns {Promise<any>}
      */
     users.get = function (userId) {
-        let sql = 'SELECT UserId, UserLogin, FirstName, LastName, Email, Role FROM users_main where UserId = ?';
+        let sql = 'SELECT ' +
+            'UserId, ' +
+            'UserLogin, ' +
+            'FirstName, ' +
+            'LastName, ' +
+            'Email, ' +
+            'RoleName, ' +
+            'RoleId, ' +
+            'EntityId, ' +
+            'EntityName ' +
+            'FROM users_main ' +
+            'WHERE UserId = ? ' +
+            'ORDER BY UserLogin';
         let values = [userId];
         let query = new Query(sql, values);
 
@@ -170,7 +194,15 @@ module.exports.Users = function (app) {
     };
 
     users.authenticate = function (userLogin, userPassword) {
-        let sql = 'SELECT UserId, UserLogin, UserPassword FROM users_main where UserLogin = ?';
+        let sql = 'SELECT ' +
+            'UserId, ' +
+            'UserLogin, ' +
+            'UserPassword, ' +
+            'RoleId, ' +
+            'RoleName, ' +
+            'EntityId, ' +
+            'EntityName ' +
+            'FROM users_main where UserLogin = ?';
         let values = [userLogin];
         let query = new Query(sql, values);
 
