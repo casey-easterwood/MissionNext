@@ -1,5 +1,5 @@
-import Repository from "../Repository";
-import UsersApi from "../../Api/Users";
+import Repository from "../../Repository";
+import UsersApi from "../../AdministrationApi/Users";
 import UserDataRow from "../../Models/UserDataRow";
 
 class Users extends Repository {

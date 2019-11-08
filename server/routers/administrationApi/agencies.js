@@ -59,6 +59,7 @@ module.exports.Route = function (app) {
         })
         .catch((error) => {
             let response = { status:'error', message: error.code };
+            console.log(error);
             res.send(JSON.stringify(response));
         });
 

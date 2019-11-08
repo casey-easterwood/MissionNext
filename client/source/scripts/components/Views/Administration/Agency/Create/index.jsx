@@ -111,6 +111,8 @@ class Create extends Component {
         userData.push({name:"Name", value: this.state.Name.getValue()});
         userData.push({name:"Status", value: 0});
         userData.push({name:"Created", value: created });
+        userData.push({name:"ImportId", value: 0});
+        userData.push({name:"OwnerUserId", value: 0});
 
         this.dataProvider.create(userData);
     }
