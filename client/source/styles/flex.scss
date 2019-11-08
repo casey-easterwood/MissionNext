@@ -1,0 +1,41 @@
+@import "settings";
+
+body {
+  background: rgb(10,67,89);
+  background: linear-gradient(135deg, rgba(10,67,89,1) 15%, rgba(25,133,169,1) 50%, rgba(11,82,31,1) 100%);
+  padding: 0;
+  margin: 0;
+
+}
+
+html{font-size:110%;}
+@media(min-width:60em){html{font-size: 90%}}
+
+input[type=text],
+input[type=password],
+input[type=number] {
+  border-top: 1px solid map_get($color-black-map, "black-20");
+  border-bottom: 1px solid map_get($color-black-map, "black-20");
+  border-left: 1px solid map_get($color-black-map, "black-20");
+  border-right: 1px solid map_get($color-black-map, "black-20");
+  border-radius: 25px;
+  height: 40px;
+  box-sizing: border-box;
+  padding: .5em;
+  margin: 0;
+}
+
+label {
+  font-size: $font-size-bigger;
+  font-weight: bold;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul li {
+  margin: 0;
+  padding: 0;
+}

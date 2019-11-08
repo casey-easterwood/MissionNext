@@ -1,0 +1,6 @@
+CREATE TABLE Profile_Fields (
+    Id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    PathwayId INT(6) NOT NULL DEFAULT 0,
+    Name varchar(50) NOT NULL,
+    Type INT(6) NOT NULL DEFAULT 0
+)

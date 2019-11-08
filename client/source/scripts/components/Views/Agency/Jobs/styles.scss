@@ -1,0 +1,22 @@
+@import "../../../../../styles/settings";
+
+.form {
+  margin: 0;
+  padding: 10px;
+  width: auto;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .buttonGroup{
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: center;
+  }
+}

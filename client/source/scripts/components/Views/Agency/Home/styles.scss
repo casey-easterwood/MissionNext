@@ -1,0 +1,53 @@
+@import "../../../../../styles/settings";
+
+.container{
+  //background-color: map_get($color-primary-map, "primary-80");
+  padding: 5px 40px 0 5px;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-start;
+
+  h3 {
+    width: 100%;
+    //padding: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: center;
+    color:$color-white;
+    display: block;
+    text-align: center;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.42);
+  }
+}
+
+.agencies {
+  background-color: map_get($color-black-map, "black-10");
+  position: relative;
+  margin: 10px 5px;
+  padding: 5px;
+  width: 100%;
+  height: 40%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid map_get($color-black-map, "black-30");
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.50);
+
+}
+
+.candidates{
+  background-color: map_get($color-black-map, "black-10");
+  margin: 10px 5px;
+  padding: 5px;
+  width: 100%;
+  height: 40%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: 1px solid map_get($color-black-map, "black-30");
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.50);
+
+}
+
