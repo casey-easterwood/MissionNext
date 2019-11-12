@@ -17,18 +17,7 @@ class JobsContext {
     }
 
     listAll(){
-        let sql = 'SELECT ' +
-            'Jobs.Id As Id, ' +
-            'Jobs.AgencyId As AgencyId, ' +
-            'Jobs.Title As Title, ' +
-            'Jobs.CategoryId As CategoryId, ' +
-            'Jobs.Location As Location, ' +
-            'Jobs.Status As Status, ' +
-            'Jobs.Created As Created, ' +
-            'JobCategories.Name as Category ' +
-            'FROM Jobs left join JobCategories ' +
-            'on (Jobs.CategoryId = JobCategories.Id) ' +
-            'ORDER BY Title';
+        let sql = 'SELECT Id, AgencyId, SchoolId,Name, Created, Updated FROM Jobs ORDER BY Name';
 
         let values = [];
         let query = new Query(sql, values);
@@ -308,8 +297,8 @@ class JobsContext {
         })
     };
 
-    getDescription(id) {
-        let sql = 'SELECT * FROM Job_Description where JobId = ?';
+    getProfileData(id) {
+        let sql = 'SELECT JobId, ProfileData FROM Jobs_Profile where JobId = ?';
         let values = [id];
         let query = new Query(sql, values);
 
@@ -329,86 +318,6 @@ class JobsContext {
                 })
         })
     };
-
-    createDescription(data) {
-        let sql = 'INSERT INTO Job_Description (%fields%) VALUES (%values%)';
-
-        let values = [];
-        let fields = [];
-        let valueMarkers = [];
-
-        data.forEach((field) => {
-            let { name, value } = field;
-
-            fields.push(name);
-            values.push(value);
-            valueMarkers.push("?");
-        });
-
-        let fieldString = fields.join(",");
-        let valuesString = valueMarkers.join(",");
-
-        sql = sql.replace("%fields%", fieldString).replace("%values%", valuesString);
-
-        let query = new Query(sql, values);
-
-        return new Promise((resolve, reject) => {
-            this.database.connect()
-                .then((connection) => {
-                    resolve(query.execute(connection));
-                }).catch((e) =>{
-
-                reject(e);
-            })
-        })
-    };
-
-    updateDescription(id, data) {
-        let sql = 'UPDATE Job_Description set ';
-
-        let values = [];
-
-        data.forEach((field) => {
-            if(values.length >0)
-                sql += ",";
-            sql += field.name + ' = ?';
-
-            values.push(field.value);
-        });
-
-        values.push(id);
-        sql += ' WHERE JobId = ?';
-
-        let query = new Query(sql, values);
-
-        return new Promise((resolve, reject) => {
-            this.database.connect()
-                .then((connection) => {
-                    resolve(query.execute(connection));
-                }).catch((e) =>{
-                reject(e);
-            })
-        })
-    };
-
-    deleteDescription(id) {
-        let sql = 'DELETE from Job_Description WHERE JobId = ?';
-        let values = [id];
-        let query = new Query(sql, values);
-
-        return new Promise((resolve, reject) => {
-            this.database.connect()
-
-                .then((connection) => {
-                    return query.execute(connection);
-                })
-
-                .then((response) => {
-                    resolve(response.results);
-                })
-        })
-    };
-
 
 }
 

@@ -88,7 +88,7 @@ class DataField {
     }
 
     getValue(){
-        return this.value;
+        return decodeURI(this.value);
     }
 
     getType(){

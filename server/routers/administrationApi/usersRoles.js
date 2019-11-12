@@ -1,5 +1,5 @@
 const express = require('express');
-const UserRoles = require('../../database/UserRoles');
+const  UserRoles  = require('../../database/UserRoles');
 const { Authenticate } = require('../../middleware/authenticate');
 
 module.exports.Route = function (app) {

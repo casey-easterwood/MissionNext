@@ -11,7 +11,7 @@ import FormSection from "../../../../Elements/FormSection";
 import styles  from './styles.scss';
 import {BackButton} from "../../../../Elements/BackButton";
 import ModalConfirm from "../../../../Elements/ModalConfirm";
-import {EVENT_TYPES} from "../../../../../Data/AdministrationProvider/UsersRoles";
+// import {EVENT_TYPES} from "../../../../../Data/AdministrationProvider/UsersRoles";
 import FormGroupButton from "../../../../Elements/FormGroupButton";
 import Modal from "../../../../Elements/Modal";
 import VerticalNavMenu from "../../../../Elements/VerticalNavMenu";
@@ -55,7 +55,7 @@ class Loader {
     loadUserRoles() {
         return new Promise((resolve, reject) => {
             const handler = (event, data) => {
-                if(event == EVENT_TYPES.LOADED){
+                if(event == "USERS_LOADED"){
                     let userRoles = [];
 
                     window.dataProvider.usersRoles.rows.map((role) =>{

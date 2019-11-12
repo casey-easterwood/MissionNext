@@ -42,8 +42,6 @@ class Loader {
                 data.agency = results[0];
                 data.jobs = results[1];
 
-                console.log("Jobs:" + data.jobs.length);
-
                 resolve(data);
             })
         });
@@ -224,7 +222,7 @@ class View extends Component {
                         <VerticalMenu
                             icon="baseline-work-24px.svg"
                             idField="Id"
-                            captionField="Title"
+                            captionField="Name"
                             defaultAction={(id) => this.props.history.push(`/administration/job/view/${id}`)}
                             menuActions={[
                                 {caption:"Edit Job", onClick:(id) => this.props.history.push(`/administration/job/edit/${id}`), warning:false},

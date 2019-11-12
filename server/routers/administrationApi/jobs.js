@@ -8,12 +8,12 @@ module.exports.Route = function (app) {
 
     router.use(Authenticate);
 
-    router.get('/jobDescription/:JobId', function (req, res, next) {
+    router.get('/getProfileData/:JobId', function (req, res, next) {
         debugger;
         let jobs = new JobsContext(app);
         let jobId = req.params.JobId;
 
-        jobs.getDescription(jobId)
+        jobs.getProfileData(jobId)
             .then(response => {
                 res.header("Content-Type", "application/json");
                 res.send(JSON.stringify(response));

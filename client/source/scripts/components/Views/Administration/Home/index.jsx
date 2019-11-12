@@ -139,7 +139,7 @@ class Index extends Component {
                                 {caption:"Edit Candidate", onClick:(id) => this.props.history.push(`/administration/candidate/edit/${id}`), warning:false},
                                 {caption:"View Candidate", onClick:(id) => this.props.history.push(`/administration/candidate/view/${id}`), warning:false},
                             ]}
-                            data={candidates}
+                            data={candidates.slice(0, 9)}
                         />
                     </div>
                     }
@@ -156,7 +156,7 @@ class Index extends Component {
                                 {caption:"Edit Agency", onClick:(id) => this.props.history.push(`/administration/agency/edit/${id}`), warning:false},
                                 {caption:"View Agency", onClick:(id) => this.props.history.push(`/administration/agency/view/${id}`), warning:false},
                             ]}
-                            data={agencies}
+                            data={agencies.slice(0, 9)}
                         />
                     </div>
                     }

@@ -46,14 +46,19 @@ class Candidates extends Component {
         let Items = this.dataProvider;
         let searchFilter = this.state.searchFilter.toLocaleLowerCase();
 
-        return Items.rows.filter((item) =>{
+        let filteredItems = Items.rows.filter((item) =>{
             let filtered = false;
 
             if(item.getFieldValue('Name').toLocaleLowerCase().indexOf(searchFilter) > -1)
                 filtered = true;
 
             return filtered;
-        })
+        });
+
+        if(filteredItems.length > 10)
+            return filteredItems.slice(0,9);
+        else
+            return filteredItems;
     }
 
     render(){

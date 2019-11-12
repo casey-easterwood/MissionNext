@@ -50,7 +50,7 @@ class Agencies extends Component {
     filterAgencies(){
         let AgencyFilter = this.state.AgencyFilter.toLocaleLowerCase();
 
-        return this.dataProvider.rows.filter((item) =>{
+        let filteredItems = this.dataProvider.rows.filter((item) =>{
             let filtered = false;
 
             if(item.getFieldValue('Name').toLocaleLowerCase().indexOf(AgencyFilter) > -1)
@@ -58,6 +58,11 @@ class Agencies extends Component {
 
             return filtered;
         })
+
+        if(filteredItems.length > 10)
+            return filteredItems.slice(0,9);
+        else
+            return filteredItems;
     }
 
     render(){

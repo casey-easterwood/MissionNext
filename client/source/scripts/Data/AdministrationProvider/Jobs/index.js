@@ -154,20 +154,19 @@ class Jobs extends Repository {
         });
     }
 
-    getDescription(JobId){
-        this.Api.getDescription(JobId)
+    getProfileData(JobId){
+        this.Api.getProfileData(JobId)
             .then(results => {
-                let records = [];
+                let profileData = null;
 
                 for (let record of results) {
-                    let jobDescription = new JobDescription(record);
-                    records.push(jobDescription);
+                    profileData = JSON.parse(record["ProfileData"]);
                 }
 
-                if(records[0])
-                    this.publishChanges("JOB_DESCRIPTION_LOADED", records[0]);
+                if(profileData)
+                    this.publishChanges("JOB_PROFILE_LOADED", profileData);
                 else
-                    this.publishChanges("JOB_DESCRIPTION_LOADED", null);
+                    this.publishChanges("JOB_PROFILE_LOADED", null);
             });
     }
 

@@ -10,6 +10,8 @@ import styles  from './styles.scss';
 import FormSection from "../../../../Elements/FormSection";
 import DataField from "../../../../../Data/Models/DataField";
 import FormGroupTextArea from "../../../../Elements/FormGroupTextArea";
+import {VerticalMenuItem} from "../../../../Elements/VerticalMenu";
+import FlexRow from "../../../../Elements/FlexRow";
 
 class View extends Component {
     dataProvider = window.dataProvider.jobs;
@@ -19,11 +21,11 @@ class View extends Component {
 
         this.onFieldChange = this.onFieldChange.bind(this);
         this.providerHandler = this.providerHandler.bind(this);
+        this.getProfileData - this.getProfileData.bind(this);
 
         this.state = {
             item: null,
-            DescriptionId: null,
-            Description: new DataField("Description", "string", "", false),
+            profileData: []
         }
     }
 
@@ -36,7 +38,7 @@ class View extends Component {
             const id = this.props.match.params.jobId;
             const item = window.dataProvider.jobs.getRow(id);
 
-            window.dataProvider.jobs.getDescription(id);
+            window.dataProvider.jobs.getProfileData(id);
             this.setState({item:item});
         }
     }
@@ -46,16 +48,14 @@ class View extends Component {
     }
 
     providerHandler(message, data){
-        if(message == "JOB_DESCRIPTION_LOADED"){
-            if(data){
-                this.state.DescriptionId = data.fields["Id"].getValue();
-                this.state.Description.setValue(data.fields["Description"].getValue());
-            }
-        } else if(message == "JOBS_LOADED"){
+
+        if(message == "JOBS_LOADED"){
             const id = this.props.match.params.jobId;
             this.state.item = window.dataProvider.jobs.getRow(id);
 
-            window.dataProvider.jobs.getDescription(id);
+            window.dataProvider.jobs.getProfileData(id);
+        } else if (message == "JOB_PROFILE_LOADED") {
+            this.state.profileData = data;
         }
 
         this.setState(this.state);
@@ -68,8 +68,37 @@ class View extends Component {
         item.setFieldValue(id, value);
     }
 
+    getProfileData(){
+        let fields = [];
+
+        //Group Fields by name
+        for(let d of this.state.profileData){
+            let field = fields.find(element=>element.FieldName == d.FieldName);
+
+            if(!field) {
+                field = { FieldName:d.FieldName, Values:[]};
+                fields.push(field);
+            }
+
+            if(d.FieldValue != "")field.Values.push(d.FieldValue);
+        }
+
+        //Sort by field name and filter out empty values
+        return fields
+        .filter(element => element.Values.length > 0)
+        .sort((a,b)=>{
+            if (a.FieldName < b.FieldName) {
+                return -1;
+            }
+            if (a.FieldName > b.FieldName) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+
     render(){
-        const { item } = this.state;
+        const { item, profileData } = this.state;
 
         return(
             <Fragment>
@@ -78,49 +107,51 @@ class View extends Component {
                     <FormSection justify={"start"}>
                         <h3>Job Details</h3>
                         <FormGroup
-                            id="Title"
-                            label="Title"
+                            id="Name"
+                            label="Name"
                             readOnly={true}
-                            value={item.fields['Title'].getValue()}
-                            validationMessage={item.fields['Title'].getValidationMessage()}
-                            onChange={(e) => item.fields['Title'].setValue(e.target.value)}
+                            value={item.fields['Name'].getValue()}
+                            validationMessage={item.fields['Name'].getValidationMessage()}
+                            onChange={(e) => item.fields['Name'].setValue(e.target.value)}
                         />
                         <FormGroup
-                            id="Category"
-                            label="Category"
+                            id="Created"
+                            label="Created"
                             readOnly={true}
-                            value={item.fields['Category'].getValue() || ''}
-                            validationMessage={item.fields['Category'].getValidationMessage()}
-                            onChange={(e) => item.fields['Category'].setValue(e.target.value)}
+                            value={item.fields['Created'].getValue() || ''}
+                            validationMessage={item.fields['Created'].getValidationMessage()}
+                            onChange={(e) => item.fields['Created'].setValue(e.target.value)}
                         />
                         <FormGroup
-                            id="Location"
-                            label="Location"
+                            id="Updated"
+                            label="Updated"
                             readOnly={true}
-                            value={item.fields['Location'].getValue() || ''}
-                            validationMessage={item.fields['Location'].getValidationMessage()}
-                            onChange={(e) => item.fields['Location'].setValue(e.target.value)}
-                        />
-                        <FormGroup
-                            id="Status"
-                            label="Status"
-                            readOnly={true}
-                            value={item.fields['Status'].getValue() || ''}
-                            validationMessage={item.fields['Status'].getValidationMessage()}
-                            onChange={(e) => item.fields['Status'].setValue(e.target.value)}
+                            value={item.fields['Updated'].getValue() || ''}
+                            validationMessage={item.fields['Updated'].getValidationMessage()}
+                            onChange={(e) => item.fields['Updated'].setValue(e.target.value)}
                         />
                     </FormSection>
-                    <FormSection justify={"stretch"}>
-                        <h3>Job Description</h3>
-                        <FormGroupTextArea
-                            id={"JobDescription"}
-                            label={"Job Description"}
-                            readOnly={true}
-                            value={this.state.Description.getValue()}
-                            validationMessage={this.state.Description.getValidationMessage()}
-                            onChange={(e) => {this.onFieldChange("Description",e.target.value)}}
-                        />
-                    </FormSection>
+                        <FormSection justify={"start"}>
+                            <h3>Profile Data</h3>
+                            <ul className={styles.profileData}>
+                                {this.getProfileData().map(field =>
+                                    <li>
+                                        <div>
+                                            <div className={styles.profileFieldName}>
+                                                {field.FieldName}
+                                            </div>
+                                            <div className={styles.profileFieldValue}>
+                                                <ul>
+                                                    {field.Values.map(value =>
+                                                        <li>{decodeURI(value)}</li>
+                                                    )}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                )}
+                            </ul>
+                        </FormSection>
                     <FormSection justify={"end"}>
                             <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/job/edit/${item.getKey()}`)} caption="Edit"/>
                             <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.goBack()} caption="Close"/>

@@ -7,10 +7,7 @@ import Administration from "./administration";
 import Agency from "./agency";
 import Authentication from "./Data/AdministrationApi/Authentication";
 import Provider from "./Data/AdministrationProvider";
-
 import styles from '../styles/main.scss';
-
-
 
 class App extends Component{
     constructor(props){
