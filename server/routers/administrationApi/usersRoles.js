@@ -1,16 +1,16 @@
 const express = require('express');
-const { UserRoles } = require('../../database/UserRoles');
+const UserRoles = require('../../database/UserRoles');
 const { Authenticate } = require('../../middleware/authenticate');
 
 module.exports.Route = function (app) {
     let router = express.Router();
-    let userRoles = UserRoles(app);
+    let userRoles = new UserRoles(app);
 
     router.use(Authenticate);
 
     // Post Routes
     router.get('/getAll', function (req, res, next) {
-        userRoles.getAll()
+        userRoles.listAll()
         .then(response => {
             res.header("Content-Type", "application/json");
             res.send(JSON.stringify(response));
