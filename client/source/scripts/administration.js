@@ -73,7 +73,7 @@ class Administration extends Component{
                 }
 
                 <Switch>
-                    <Route exact path={`${this.routeBase}/home`}                    component={Home}  />
+                    <Route exact path={`${this.routeBase}/home`}                    component={Home}/>
                     <Route exact path={`${this.routeBase}/system/users`}            component={Users}/>
                     <Route       path={`${this.routeBase}/system/user`}             component={User}/>
                     <Route exact path={`${this.routeBase}/agencies`}                component={Agencies}/>
