@@ -17,7 +17,7 @@ class JobsContext {
     }
 
     listAll(){
-        let sql = 'SELECT Id, AgencyId, SchoolId,Name, Created, Updated FROM Jobs ORDER BY Name';
+        let sql = 'SELECT Id, AgencyId, SchoolId, Name, Created, Updated FROM Jobs ORDER BY Name';
 
         let values = [];
         let query = new Query(sql, values);
@@ -174,11 +174,11 @@ class JobsContext {
     getJobAgencies(){
         let sql = 'SELECT ' +
             'Jobs.AgencyId as AgencyId, ' +
-            'Agencies.Name as Name, ' +
+            'Schools.Name as Name, ' +
             'Count(*) as Count ' +
-            'FROM Jobs left join Agencies ' +
-            'on (Jobs.AgencyId = Agencies.Id) ' +
-            'GROUP BY Jobs.AgencyId ORDER BY Agencies.Name ';
+            'FROM Jobs left join Schools ' +
+            'on (Jobs.AgencyId = Schools.Id) ' +
+            'GROUP BY Jobs.AgencyId ORDER BY Schools.Name ';
 
         let values = [];
         let query = new Query(sql, values);

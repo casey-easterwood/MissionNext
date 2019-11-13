@@ -10,6 +10,8 @@ class CandidatesContext {
         this.create = this.create.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
+        this.getProfileData = this.getProfileData.bind(this);
+
 
     }
 
@@ -155,6 +157,27 @@ class CandidatesContext {
         })
     };
 
+    getProfileData(id) {
+        let sql = 'SELECT CandidateId, ProfileData FROM Candidates_Profile where CandidateId = ?';
+        let values = [id];
+        let query = new Query(sql, values);
+
+        return new Promise((resolve) => {
+            this.database.connect()
+
+                .then((connection) => {
+                    return query.execute(connection);
+                })
+
+                .then((response) => {
+                    resolve(response.results);
+                })
+
+                .catch((error) => {
+                    console.log(error);
+                })
+        })
+    };
 }
 
 module.exports = CandidatesContext;

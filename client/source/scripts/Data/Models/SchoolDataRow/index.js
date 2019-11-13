@@ -2,7 +2,7 @@ import DataRow from "../DataRow";
 import DataField from "../DataField";
 import {FieldValidator, ValidationRule} from "../FieldValidator";
 
-class CandidateDataRow extends DataRow{
+class SchoolDataRow extends DataRow{
     validators = [];
 
     constructor(data){
@@ -18,34 +18,29 @@ class CandidateDataRow extends DataRow{
 
     addFields(data){
         this.addField(new DataField("Id", "number", data["Id"], true));
-        this.addField(new DataField("UserId", "number", data["UserId"], false));
         this.addField(new DataField("Name", "string", data["Name"], false));
         this.addField(new DataField("Address", "string", data["Address"], false));
         this.addField(new DataField("City", "string", data["City"], false));
         this.addField(new DataField("State", "string", data["State"], false));
-        this.addField(new DataField("PostalCode", "string", data["PostalCode"], false));
         this.addField(new DataField("Country", "string", data["Country"], false));
+        this.addField(new DataField("ContactName", "string", data["ContactName"], false));
         this.addField(new DataField("Phone", "string", data["Phone"], false));
-        this.addField(new DataField("Email", "string", data["Email"], false));
+        this.addField(new DataField("Website", "string", data["Website"], false));
         this.addField(new DataField("Status", "string", data["Status"], false));
-        this.addField(new DataField("DateOfBirth", "number", data["DateOfBirth"], false));
         this.addField(new DataField("Created", "string", data["Created"], false));
-        this.addField(new DataField("ImportId", "number", data["ImportId"], false));
     }
 
     addValidation(){
         this.validators["Id"] = new FieldValidator();
-        this.validators["UserId"] = new FieldValidator();
         this.validators["Name"] = new FieldValidator();
         this.validators["Address"] = new FieldValidator();
         this.validators["City"] = new FieldValidator();
         this.validators["State"] = new FieldValidator();
-        this.validators["PostalCode"] = new FieldValidator();
         this.validators["Country"] = new FieldValidator();
+        this.validators["ContactName"] = new FieldValidator();
         this.validators["Phone"] = new FieldValidator();
-        this.validators["Email"] = new FieldValidator();
+        this.validators["Website"] = new FieldValidator();
         this.validators["Status"] = new FieldValidator();
-        this.validators["DateOfBirth"] = new FieldValidator();
         this.validators["Created"] = new FieldValidator();
 
         this.validators["Id"].addRule(new ValidationRule("required", true, "Required field."));
@@ -54,7 +49,7 @@ class CandidateDataRow extends DataRow{
             new ValidationRule("minlength",4,"Requires more than 5 characters."));
 
         this.validators["Name"].addRule(
-            new ValidationRule("maxlength",50,"Requires less than 50 characters."));
+            new ValidationRule("maxlength",25,"Requires less than 25 characters."));
 
         this.validators["Address"].addRule(
             new ValidationRule("maxlength",25,"Requires less than 25 characters."));
@@ -65,14 +60,17 @@ class CandidateDataRow extends DataRow{
         this.validators["State"].addRule(
             new ValidationRule("maxlength",25,"Requires less than 25 characters."));
 
-        this.validators["PostalCode"].addRule(
+        this.validators["Country"].addRule(
+            new ValidationRule("maxlength",25,"Requires less than 25 characters."));
+
+        this.validators["ContactName"].addRule(
             new ValidationRule("maxlength",25,"Requires less than 25 characters."));
 
         this.validators["Phone"].addRule(
             new ValidationRule("maxlength",25,"Requires less than 25 characters."));
 
-        this.validators["Email"].addRule(
-            new ValidationRule("maxlength",100,"Requires less than 100 characters."));
+        this.validators["Website"].addRule(
+            new ValidationRule("maxlength",25,"Requires less than 25 characters."));
 
     }
 
@@ -115,4 +113,4 @@ class CandidateDataRow extends DataRow{
     }
 }
 
-export default CandidateDataRow;
+export default SchoolDataRow;

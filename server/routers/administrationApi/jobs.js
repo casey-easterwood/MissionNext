@@ -9,7 +9,6 @@ module.exports.Route = function (app) {
     router.use(Authenticate);
 
     router.get('/getProfileData/:JobId', function (req, res, next) {
-        debugger;
         let jobs = new JobsContext(app);
         let jobId = req.params.JobId;
 
@@ -22,7 +21,6 @@ module.exports.Route = function (app) {
 
     router.get('/list', function (req, res, next) {
         let jobs = new JobsContext(app);
-
         jobs.listAll()
             .then(response => {
                 res.header("Content-Type", "application/json");
@@ -52,7 +50,7 @@ module.exports.Route = function (app) {
             })
     });
 
-    //list agencies used in jobs table
+    //list jobs used in jobs table
     router.get('/listAgencies', function (req, res, next) {
         let jobs = new JobsContext(app);
 

@@ -44,6 +44,11 @@ class Header extends Component {
                             </NavLink>
                         </li>
                         <li>
+                            <NavLink activeClassName={styles.active} to={"/administration/schools"}>
+                                Schools
+                            </NavLink>
+                        </li>
+                        <li>
                             <NavLink activeClassName={styles.active} to={"/administration/candidates"}>
                                 Candidates
                             </NavLink>

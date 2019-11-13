@@ -24,9 +24,7 @@ class Loader {
 
         this.load = this.load.bind(this);
         this.loadCandidate = this.loadCandidate.bind(this);
-        this.loadQuestionGroups = this.loadQuestionGroups.bind(this);
-        this.loadQuestions = this.loadQuestions.bind(this);
-        this.loadAnswers = this.loadAnswers.bind(this);
+        this.loadProfileData = this.loadProfileData.bind(this);
     }
 
     load() {
@@ -34,29 +32,21 @@ class Loader {
 
         let data = {
             candidate: null,
-            questionGroups: [],
-            questions: [],
-            answers: []
+            profileData: null
         };
 
         return new Promise((resolve, reject) => {
             let getCandidate = loader.loadCandidate(loader.id);
-            let getQuestionGroups = loader.loadQuestionGroups();
-            let getQuestions = loader.loadQuestions();
-            let getAnswers = loader.loadAnswers();
+            let getProfileData = loader.loadProfileData(loader.id);
 
             let promises = [
                 getCandidate,
-                getQuestionGroups,
-                getQuestions,
-                getAnswers
+                getProfileData
             ];
 
             Promise.all(promises).then((results) => {
                 data.candidate = results[0];
-                data.questionGroups = results[1];
-                data.questions = results[2];
-                data.answers = results[3];
+                data.profileData = results[1];
                 resolve(data);
             })
         });
@@ -85,60 +75,20 @@ class Loader {
         })
     }
 
-    loadQuestionGroups() {
+    loadProfileData(id) {
         return new Promise((resolve, reject) => {
-            let items = [];
-
             const handler = (event, data) => {
-                if (event == "PROFILE_QUESTION_GROUP_LOADED") {
-                    items = window.dataProvider.ProfileQuestionGroups.rows;
+                if (event == "CANDIDATE_PROFILE_LOADED") {
+                    let profileData = data;
 
-                    window.dataProvider.ProfileQuestionGroups.unsubscribe(this);
+                    window.dataProvider.candidates.unsubscribe(this);
 
-                    resolve(items);
+                    resolve(profileData);
                 }
             };
 
-            window.dataProvider.ProfileQuestionGroups.subscribeToChanges(handler);
-            window.dataProvider.ProfileQuestionGroups.getAll();
-        })
-    }
-
-    loadQuestions() {
-        return new Promise((resolve, reject) => {
-            let items = [];
-
-            const handler = (event, data) => {
-                if (event == "QUESTIONS_LOADED") {
-                    items = window.dataProvider.ProfileQuestions.rows;
-
-                    window.dataProvider.ProfileQuestions.unsubscribe(this);
-
-                    resolve(items);
-                }
-            };
-
-            window.dataProvider.ProfileQuestions.subscribeToChanges(handler);
-            window.dataProvider.ProfileQuestions.getAll();
-        })
-    }
-
-    loadAnswers() {
-        return new Promise((resolve, reject) => {
-            let items = [];
-
-            const handler = (event, data) => {
-                if (event == "QUESTION_ANSWERS_LOADED") {
-                    items = window.dataProvider.ProfileQuestionsAnswers.rows;
-
-                    window.dataProvider.ProfileQuestionsAnswers.unsubscribe(this);
-
-                    resolve(items);
-                }
-            };
-
-            window.dataProvider.ProfileQuestionsAnswers.subscribeToChanges(handler);
-            window.dataProvider.ProfileQuestionsAnswers.getAll();
+            window.dataProvider.candidates.subscribeToChanges(handler);
+            window.dataProvider.candidates.getProfileData(id);
         })
     }
 }
@@ -151,19 +101,12 @@ class View extends Component {
 
         this.providerHandler = this.providerHandler.bind(this);
         this.savedDialog = this.savedDialog.bind(this);
-        this.answerDialog = this.answerDialog.bind(this);
-        this.showAnswerDialog = this.showAnswerDialog.bind(this);
-        this.closeAnswerDialog = this.closeAnswerDialog.bind(this);
-        this.selectAnswer = this.selectAnswer.bind(this);
-        this.getAnswer = this.getAnswer.bind(this);
+        this.getProfileData = this.getProfileData.bind(this);
         this.save = this.save.bind(this);
 
         this.state = {
             item: null,
-            questionGroups: [],
-            questions: [],
-            answers:[],
-            selectedAnswers:[],
+            profileData: null,
             loading: true,
             showSavedDialog: false,
             showAnswerDialog: false,
@@ -177,9 +120,7 @@ class View extends Component {
 
         loader.load().then(data => {
             this.state.item = data.candidate;
-            this.state.questionGroups = data.questionGroups;
-            this.state.questions = data.questions;
-            this.state.answers = data.answers;
+            this.state.profileData = data.profileData;
             this.state.loading = false;
 
             this.setState(this.state);
@@ -215,47 +156,6 @@ class View extends Component {
         this.setState({debounce: (new Date()).getTime() + 3000});
     }
 
-    showAnswerDialog(id){
-        this.state.selectedQuestionId = id;
-        this.state.showAnswerDialog = true;
-
-        this.setState(this.state);
-    }
-
-    closeAnswerDialog(){
-        this.setState({showAnswerDialog:false});
-    }
-
-    selectAnswer(id){
-        let answer = this.state.answers.find(answer => answer.getKey() == id);
-
-        this.state.selectedAnswers.push(answer);
-        this.state.showAnswerDialog = false;
-        this.setState(this.state);
-
-    }
-
-    answerDialog(){
-        let filteredAnswers = this.state.answers.filter(answer => answer.fields["QuestionId"].getValue() == this.state.selectedQuestionId);
-
-        return (
-            <Modal
-                open={this.state.showAnswerDialog}
-                close={() => this.closeAnswerDialog()}
-            >
-                <h2>Choose A Answer</h2>
-                <VerticalMenu
-                    icon={null}
-                    idField="Id"
-                    captionField="Answer"
-                    defaultAction={(id) => this.selectAnswer(id)}
-                    menuActions={null}
-                    data={filteredAnswers}
-                />
-            </Modal>
-        )
-    }
-
     savedDialog(){
         return (
             <ModalConfirm
@@ -267,23 +167,41 @@ class View extends Component {
         )
     }
 
-    getAnswer(questionId) {
-        const answer = this.state.selectedAnswers.find(answer => answer.fields["QuestionId"].getValue() == questionId);
+    getProfileData(){
+        let fields = [];
 
-        if(answer)
-            return answer.fields["Answer"].getValue();
-        else
-            return "";
+        //Group Fields by name
+        for(let d of this.state.profileData){
+            let field = fields.find(element=>element.FieldName == (d.FieldName + " - " + d.NewFieldId));
+
+            if(!field) {
+                field = { FieldName:d.FieldName + " - " + d.NewFieldId, Values:[]};
+                fields.push(field);
+            }
+
+            if(d.FieldValue != "")field.Values.push(d.FieldValue + " - " + d.NewDictionaryId);
+        }
+
+        //Sort by field name and filter out empty values
+        return fields
+            .filter(element => element.Values.length > 0)
+            .sort((a,b)=>{
+                if (a.FieldName < b.FieldName) {
+                    return -1;
+                }
+                if (a.FieldName > b.FieldName) {
+                    return 1;
+                }
+                return 0;
+            });
     }
 
     render(){
         const { item } = this.state;
         const SavedDialog = this.savedDialog;
-        const AnswerDialog = this.answerDialog;
 
         return(
             <Fragment>
-                <AnswerDialog/>
                 <SavedDialog />
                 {this.state.loading &&
                     <h2>Loading....</h2>
@@ -316,6 +234,14 @@ class View extends Component {
                                 value={item.fields['Email'].getValue() || ''}
                                 validationMessage = {item.fields['Email'].getValidationMessage()}
                                 onChange={(e) => item.fields['Email'].setValue(e.target.value)}
+                            />
+                            <FormGroup
+                                id="ImportId"
+                                label="Import Id"
+                                readOnly={true}
+                                value={item.fields['ImportId'].getValue()}
+                                validationMessage = {item.fields['ImportId'].getValidationMessage()}
+                                onChange={(e) => item.fields['ImportId'].setValue(e.target.value)}
                             />
                         </FormSection>
                         <FormSection justify="start">
@@ -353,27 +279,27 @@ class View extends Component {
                                 onChange={(e) => item.fields['PostalCode'].setValue(e.target.value)}
                             />
                         </FormSection>
-
-                        {this.state.questionGroups.map(group =>
-                            <FormSection justify={"start"} key={group.fields["Id"].getValue()}>
-                                <h3>{group.fields["Name"].getValue()}</h3>
-                                <ul className={styles.questionList}>
-                                    {this.state.questions.filter((question) =>
-                                        group.getKey() == question.fields["GroupId"].getValue())
-                                        .map(question =>
-                                            <li key={question.getKey()}>
-                                                <div className={styles.question}>
-                                                    {question.fields["Question"].getValue()}
-                                                </div>
-                                                <div className={styles.answer}>
-                                                    {this.getAnswer(question.getKey())}
-                                                </div>
-                                            </li>
-                                    )}
-                                </ul>
-                            </FormSection>
-                        )}
-
+                        <FormSection justify={"start"}>
+                            <h3>Profile Data</h3>
+                            <ul className={styles.profileData}>
+                                {this.getProfileData().map(field =>
+                                    <li>
+                                        <div>
+                                            <div className={styles.profileFieldName}>
+                                                {field.FieldName}
+                                            </div>
+                                            <div className={styles.profileFieldValue}>
+                                                <ul>
+                                                    {field.Values.map(value =>
+                                                        <li>{decodeURI(value)}</li>
+                                                    )}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                )}
+                            </ul>
+                        </FormSection>
                         <FormSection justify="end">
                             <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/candidate/edit/${item.getKey()}`)} caption="Edit"/>
                             <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.goBack()}  caption="Close"/>

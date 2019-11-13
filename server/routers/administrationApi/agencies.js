@@ -7,9 +7,22 @@ module.exports.Route = function (app) {
 
     router.use(Authenticate);
 
+    router.get('/getProfileData/:AgencyId', function (req, res, next) {
+        let agencies = new AgenciesContext(app);
+        let agencyId = req.params.AgencyId;
+
+        agencies.getProfileData(agencyId)
+            .then(response => {
+                res.header("Content-Type", "application/json");
+                res.send(JSON.stringify(response));
+            })
+    });
+
     // Post Routes
     router.get('/list', function (req, res, next) {
         let agencies = new AgenciesContext(app);
+
+        console.log("Agencies get list");
 
         agencies.listAll()
             .then(response => {

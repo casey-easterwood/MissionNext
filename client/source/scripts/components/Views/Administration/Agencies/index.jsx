@@ -16,6 +16,13 @@ class Agencies extends Component {
     state = {
         loading: true,
         AgencyFilter: '',
+        recordCount : 0,
+        itemsPerPage: 10,
+        agencies:[],
+        pages: 0,
+        currentPage: 1,
+        pageStart: 0,
+        pageEnd: 9,
     };
 
     dataProvider = window.dataProvider.agencies;
@@ -27,9 +34,17 @@ class Agencies extends Component {
         this.providerHandler = this.providerHandler.bind(this);
         this.filterAgencies = this.filterAgencies.bind(this);
         this.providerHandler = this.providerHandler.bind(this);
+
+        this.clickNextPage = this.clickNextPage.bind(this);
+        this.clickPrevPage = this.clickPrevPage.bind(this);
+
     };
 
     componentDidMount(){
+        let currentPage = sessionStorage.getItem('AGENCIES_CURRENT_PAGE');
+        this.state.currentPage = (currentPage) ? currentPage : 1;
+        this.setState(this.state);
+
         this.dataProvider.subscribeToChanges(this.providerHandler);
         this.dataProvider.getAll();
     }
@@ -39,28 +54,66 @@ class Agencies extends Component {
     }
 
     providerHandler(event, data){
-        if(event == "AGENCIES_LOADED")
-            this.setState({loading:false});
+        if(event == "AGENCIES_LOADED"){
+            this.state.recordCount = data.length;
+            this.state.pages = parseInt(data.length/this.state.itemsPerPage);
+            this.state.loading = false;
+            this.state.agencies = data;
+
+            this.state.pageEnd = this.state.currentPage * this.state.itemsPerPage;
+            this.state.pageStart = this.state.pageEnd - this.state.itemsPerPage;
+
+            let currentPage = sessionStorage.getItem('AGENCIES_CURRENT_PAGE');
+            this.state.currentPage = (currentPage) ? currentPage : 1;
+
+
+            this.setState(this.state);
+        }
     }
 
     onSearchChanged(e){
-        this.setState({AgencyFilter:e.target.value});
+
+        this.setState({AgencyFilter:e.target.value, currentPage:1});
+    }
+
+    clickNextPage(){
+        if(this.state.currentPage <= this.state.pages){
+            this.state.currentPage++;
+            this.state.pageEnd = this.state.currentPage * this.state.itemsPerPage;
+            this.state.pageStart = this.state.pageEnd - this.state.itemsPerPage;
+
+            sessionStorage.setItem('AGENCIES_CURRENT_PAGE', this.state.currentPage);
+
+            this.setState(this.state);
+        }
+    }
+
+    clickPrevPage(){
+        if(this.state.currentPage > 1){
+            this.state.currentPage--;
+            this.state.pageEnd = this.state.currentPage * this.state.itemsPerPage;
+            this.state.pageStart = this.state.pageEnd - this.state.itemsPerPage;
+
+            sessionStorage.setItem('AGENCIES_CURRENT_PAGE', this.state.currentPage);
+
+            this.setState(this.state);
+        }
     }
 
     filterAgencies(){
         let AgencyFilter = this.state.AgencyFilter.toLocaleLowerCase();
 
-        let filteredItems = this.dataProvider.rows.filter((item) =>{
+        let filteredItems = this.state.agencies.filter((item) =>{
             let filtered = false;
 
             if(item.getFieldValue('Name').toLocaleLowerCase().indexOf(AgencyFilter) > -1)
                 filtered = true;
 
             return filtered;
-        })
+        });
 
-        if(filteredItems.length > 10)
-            return filteredItems.slice(0,9);
+        if(filteredItems.length > this.state.itemsPerPage)
+            return filteredItems.slice(this.state.pageStart,this.state.pageEnd);
         else
             return filteredItems;
     }
@@ -85,7 +138,14 @@ class Agencies extends Component {
                                className={styles.sidebarSearchInput}
                         />
                     </div>
-                    <h2>Agencies</h2>
+                    <h2>Agencies </h2>
+                    {this.state.AgencyFilter == "" &&
+                        <div>
+                            <input type="button" value={"<<"} onClick={this.clickPrevPage}/>
+                            <span> Page {this.state.currentPage} </span>
+                            <input type="button" value={">>"} onClick={this.clickNextPage}/>
+                        </div>
+                    }
                     <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/administration/agency/create`)}/>
                 </ToolBar>
                 <Content>

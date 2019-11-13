@@ -10,7 +10,14 @@ class Candidates extends Component {
     //mode search, edit, view, creat
     state = {
         loading: false,
+        Items: [],
         searchFilter: '',
+        recordCount : 0,
+        itemsPerPage: 10,
+        pages: 0,
+        currentPage: 1,
+        pageStart: 0,
+        pageEnd: 9,
     };
     dataProvider = window.dataProvider.candidates;
 
@@ -21,9 +28,16 @@ class Candidates extends Component {
         this.providerHandler = this.providerHandler.bind(this);
         this.filterItems = this.filterItems.bind(this);
         this.providerHandler = this.providerHandler.bind(this);
+
+        this.clickNextPage = this.clickNextPage.bind(this);
+        this.clickPrevPage = this.clickPrevPage.bind(this);
     };
 
     componentDidMount(){
+        let currentPage = sessionStorage.getItem('CANDIDATES_CURRENT_PAGE');
+        this.state.currentPage = (currentPage) ? currentPage : 1;
+        this.setState(this.state);
+
         this.dataProvider.subscribeToChanges(this.providerHandler);
         this.dataProvider.getAll();
     }
@@ -34,7 +48,15 @@ class Candidates extends Component {
 
     providerHandler(message, data){
         if(message == "CANDIDATES_LOADED") {
-            this.setState({Items: this.dataProvider.getRows()});
+            this.state.recordCount = data.length;
+            this.state.pages = parseInt(data.length/this.state.itemsPerPage);
+            this.state.loading = false;
+            this.state.Items = data;
+
+            this.state.pageEnd = this.state.currentPage * this.state.itemsPerPage;
+            this.state.pageStart = this.state.pageEnd - this.state.itemsPerPage;
+
+            this.setState(this.state);
         }
     }
 
@@ -42,11 +64,34 @@ class Candidates extends Component {
         this.setState({searchFilter:e.target.value});
     }
 
+    clickNextPage(){
+        if(this.state.currentPage <= this.state.pages){
+            this.state.currentPage++;
+            this.state.pageEnd = this.state.currentPage * this.state.itemsPerPage;
+            this.state.pageStart = this.state.pageEnd - this.state.itemsPerPage;
+
+            sessionStorage.setItem('CANDIDATES_CURRENT_PAGE', this.state.currentPage);
+
+            this.setState(this.state);
+        }
+    }
+
+    clickPrevPage(){
+        if(this.state.currentPage > 1){
+            this.state.currentPage--;
+            this.state.pageEnd = this.state.currentPage * this.state.itemsPerPage;
+            this.state.pageStart = this.state.pageEnd - this.state.itemsPerPage;
+
+            sessionStorage.setItem('CANDIDATES_CURRENT_PAGE', this.state.currentPage);
+
+            this.setState(this.state);
+        }
+    }
+
     filterItems(){
-        let Items = this.dataProvider;
         let searchFilter = this.state.searchFilter.toLocaleLowerCase();
 
-        let filteredItems = Items.rows.filter((item) =>{
+        let filteredItems = this.state.Items.filter((item) =>{
             let filtered = false;
 
             if(item.getFieldValue('Name').toLocaleLowerCase().indexOf(searchFilter) > -1)
@@ -55,8 +100,8 @@ class Candidates extends Component {
             return filtered;
         });
 
-        if(filteredItems.length > 10)
-            return filteredItems.slice(0,9);
+        if(filteredItems.length > this.state.itemsPerPage)
+            return filteredItems.slice(this.state.pageStart,this.state.pageEnd);
         else
             return filteredItems;
     }
@@ -86,6 +131,13 @@ class Candidates extends Component {
                         />
                     </div>
                     <h2>Candidates</h2>
+                    {this.state.searchFilter == "" &&
+                    <div>
+                        <input type="button" value={"<<"} onClick={this.clickPrevPage}/>
+                        <span> Page {this.state.currentPage} </span>
+                        <input type="button" value={">>"} onClick={this.clickNextPage}/>
+                    </div>
+                    }
                     <ToolbarButton caption={'New'} onClick={() => this.props.history.push(`/administration/candidate/create`)}/>
                 </ToolBar>
                 <Content>

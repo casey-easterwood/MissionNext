@@ -16,6 +16,7 @@ class Jobs extends Repository {
         this.getAll = this.getAll.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
         this.onSaved = this.onSaved.bind(this);
+        this.getProfileData = this.getProfileData.bind(this);
     }
 
     getAll(){
@@ -27,7 +28,7 @@ class Jobs extends Repository {
                 let user = new JobsDataRow(record);
                 this.addRow(user);
             }
-            this.publishChanges("JOBS_LOADED", results);
+            this.publishChanges("JOBS_LOADED", this.rows);
         });
     }
 
@@ -36,6 +37,18 @@ class Jobs extends Repository {
 
         for(let job of this.rows){
             if(job.fields["AgencyId"].getValue() == agencyId){
+                jobs.push(job);
+            }
+        }
+
+        return jobs;
+    }
+
+    getBySchool(schoolId){
+        let jobs =[];
+
+        for(let job of this.rows){
+            if(job.fields["SchoolId"].getValue() == schoolId){
                 jobs.push(job);
             }
         }

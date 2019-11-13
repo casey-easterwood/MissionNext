@@ -1,5 +1,5 @@
 const express = require('express');
-const CandidatesContext = require('../../database/Candidates');
+const SchoolsContext = require('../../database/Schools');
 const { Authenticate } = require('../../middleware/authenticate');
 
 module.exports.Route = function (app) {
@@ -7,22 +7,11 @@ module.exports.Route = function (app) {
 
     router.use(Authenticate);
 
-    router.get('/getProfileData/:CandidateId', function (req, res, next) {
-        let candidates = new CandidatesContext(app);
-        let candidateId = req.params.CandidateId;
-
-        candidates.getProfileData(candidateId)
-            .then(response => {
-                res.header("Content-Type", "application/json");
-                res.send(JSON.stringify(response));
-            })
-    });
-
     // Post Routes
     router.get('/list', function (req, res, next) {
-        let candidates = new CandidatesContext(app);
+        let schools = new SchoolsContext(app);
 
-        candidates.listAll()
+        schools.listAll()
             .then(response => {
                 res.header("Content-Type", "application/json");
                 res.send(JSON.stringify(response));
@@ -30,7 +19,7 @@ module.exports.Route = function (app) {
     });
 
     router.post('/save', function (req, res, next) {
-        let candidates = new CandidatesContext(app);
+        let schools = new SchoolsContext(app);
         let fields = req.body;
         let key = null;
         let data = [];
@@ -42,7 +31,7 @@ module.exports.Route = function (app) {
                 data.push(field);
         });
 
-        candidates.update(key, data)
+        schools.update(key, data)
         .then(({results}) => {
             let response = { status:'success', message: ''};
             res.send(JSON.stringify(response));
@@ -54,7 +43,7 @@ module.exports.Route = function (app) {
     });
 
     router.post('/createNew', function (req, res, next) {
-        let candidates = new CandidatesContext(app);
+        let schools = new SchoolsContext(app);
         let fields = req.body;
         let data = [];
 
@@ -63,24 +52,24 @@ module.exports.Route = function (app) {
                 data.push(field);
         });
 
-        candidates.create(data)
+        schools.create(data)
         .then(({results}) => {
             let response = { status:'success', insertId: results.insertId };
             res.send(JSON.stringify(response));
         })
         .catch((error) => {
-            console.log(error);
             let response = { status:'error', message: error.code };
+            console.log(error);
             res.send(JSON.stringify(response));
         });
 
     });
 
     router.post('/exists', function (req, res, next) {
-        let candidates = new CandidatesContext(app);
+        let schools = new SchoolsContext(app);
         let {Name} = req.body;
 
-        candidates.exists(Name)
+        schools.exists(Name)
             .then((results) => {
                 let response = { status:'success', exists:results };
                 res.send(JSON.stringify(response));
@@ -93,16 +82,15 @@ module.exports.Route = function (app) {
     });
 
     router.post('/delete', function (req, res, next) {
-        let candidates = new CandidatesContext(app);
+        let schools = new SchoolsContext(app);
         let {id} = req.body;
 
-        candidates.delete(id)
+        schools.delete(id)
             .then((results) => {
                 let response = { status:'success', results:results };
                 res.send(JSON.stringify(response));
             })
             .catch((error) => {
-
                 let response = { status:'error', message: error.code };
                 res.send(JSON.stringify(response));
             });

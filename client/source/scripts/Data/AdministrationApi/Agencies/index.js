@@ -69,6 +69,17 @@ class Agencies extends Api{
             .then(response => response.json())
     }
 
+    getProfileData(agencyId){
+        return fetch("/api/agencies/getProfileData/" + agencyId,{
+            method: "GET",
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication' : this.getAuthHeader()
+            },
+        })
+            .then(response => response.json())
+    }
     static getInstance(){
         return new Agencies();
     }

@@ -13,6 +13,7 @@ class Candidates extends Repository {
         this.getAll = this.getAll.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
         this.onSaved = this.onSaved.bind(this);
+        this.getProfileData = this.getProfileData.bind(this);
     }
 
     getAll(){
@@ -24,10 +25,10 @@ class Candidates extends Repository {
                         this.addRow(user);
                     }
 
-                    this.publishChanges("CANDIDATES_LOADED", results);
+                    this.publishChanges("CANDIDATES_LOADED", this.rows);
                 });
         } else {
-            this.publishChanges("CANDIDATES_LOADED", null);
+            this.publishChanges("CANDIDATES_LOADED", this.rows);
         }
     }
 
@@ -73,6 +74,21 @@ class Candidates extends Repository {
         .then((response) =>{
             this.publishChanges("CANDIDATE_CREATED", response);
         });
+    }
+    getProfileData(CandidateId){
+        this.Api.getProfileData(CandidateId)
+            .then(results => {
+                let profileData = null;
+
+                for (let record of results) {
+                    profileData = JSON.parse(record["ProfileData"]);
+                }
+
+                if(profileData)
+                    this.publishChanges("CANDIDATE_PROFILE_LOADED", profileData);
+                else
+                    this.publishChanges("CANDIDATE_PROFILE_LOADED", null);
+            });
     }
 }
 

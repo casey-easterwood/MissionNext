@@ -1,5 +1,6 @@
 import Users from "./Users";
 import Agencies from "./Agencies";
+import Schools from "./Schools";
 import Candidates from "./Candidates";
 import Jobs from "./Jobs";
 import JobCategories from "./JobsCategories";
@@ -11,6 +12,7 @@ import UsersRoles from "./UsersRoles";
 class Provider {
     users = new Users();
     agencies = new Agencies();
+    schools = new Schools();
     candidates = new Candidates();
     jobs = new Jobs();
     ProfileQuestionGroups = new ProfileQuestionGroups();

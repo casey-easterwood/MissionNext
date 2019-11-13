@@ -9,6 +9,8 @@ import Users from "./components/Views/Administration/Users";
 import User from "./components/Views/Administration/User";
 import Agencies from "./components/Views/Administration/Agencies";
 import Agency from "./components/Views/Administration/Agency";
+import Schools from "./components/Views/Administration/Schools";
+import School from "./components/Views/Administration/School";
 import Candidates from "./components/Views/Administration/Candidates";
 import Candidate from "./components/Views/Administration/Candidate"
 import Job from "./components/Views/Administration/Job";
@@ -78,6 +80,8 @@ class Administration extends Component{
                     <Route       path={`${this.routeBase}/system/user`}             component={User}/>
                     <Route exact path={`${this.routeBase}/agencies`}                component={Agencies}/>
                     <Route       path={`${this.routeBase}/agency`}                  component={Agency}/>
+                    <Route exact path={`${this.routeBase}/schools`}                 component={Schools}/>
+                    <Route       path={`${this.routeBase}/school`}                  component={School}/>
                     <Route exact path={`${this.routeBase}/candidates`}              component={Candidates}/>
                     <Route       path={`${this.routeBase}/candidate`}               component={Candidate}/>
                     <Route       path={`${this.routeBase}/jobs` }                   component={Jobs}/>

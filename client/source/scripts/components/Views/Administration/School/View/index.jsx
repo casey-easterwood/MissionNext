@@ -16,72 +16,67 @@ class Loader {
         this.id = id;
 
         this.load = this.load.bind(this);
-        this.loadAgency = this.loadAgency.bind(this);
-        this.loadAgencyJobs = this.loadAgencyJobs.bind(this);
-        this.loadProfileData = this.loadProfileData.bind(this);
+        this.loadSchool = this.loadSchool.bind(this);
+        this.loadSchoolJobs = this.loadSchoolJobs.bind(this);
     }
 
     load(){
         const loader = this;
 
         let data = {
-            agency: null,
+            school: null,
             jobs: [],
-            profileData: null
         };
 
         return new Promise((resolve, reject) => {
-            let getAgency = loader.loadAgency(loader.id);
-            let getJobs = loader.loadAgencyJobs(loader.id);
-            let getProfileData = loader.loadProfileData(loader.id);
+            let getSchool = loader.loadSchool(loader.id);
+            let getJobs = loader.loadSchoolJobs(loader.id);
 
             let promises = [
-                getAgency,
-                getJobs,
-                getProfileData
+                getSchool,
+                getJobs
             ];
 
 
             Promise.all(promises).then((results) => {
-                data.agency = results[0];
+                data.school = results[0];
                 data.jobs = results[1];
-                data.profileData = results[2];
 
                 resolve(data);
             })
         });
     }
 
-    loadAgency(agencyId) {
+    loadSchool(schoolId) {
         return new Promise((resolve, reject) => {
-            let agency = window.dataProvider.agencies.getRow(agencyId);
+            let school = window.dataProvider.schools.getRow(schoolId);
 
             const handler = (event, data) => {
-                if(event =="AGENCIES_LOADED"){
-                    agency = window.dataProvider.agencies.getRow(agencyId);
+                if(event =="SCHOOLS_LOADED"){
+                    school = window.dataProvider.schools.getRow(schoolId);
 
-                    window.dataProvider.agencies.unsubscribe(this);
+                    window.dataProvider.schools.unsubscribe(this);
 
-                    resolve(agency);
+                    resolve(school);
                 }
             };
 
-            if(agency == null){
-                window.dataProvider.agencies.subscribeToChanges(handler);
-                window.dataProvider.agencies.getAll();
+            if(school == null){
+                window.dataProvider.schools.subscribeToChanges(handler);
+                window.dataProvider.schools.getAll();
             } else {
-                resolve(agency);
+                resolve(school);
             }
         })
     }
 
-    loadAgencyJobs(agencyId) {
+    loadSchoolJobs(schoolId) {
         return new Promise((resolve, reject) => {
-            let jobs = window.dataProvider.jobs.getByAgency(agencyId);
+            let jobs = window.dataProvider.jobs.getBySchool(schoolId);
 
             const handler = (event, data) => {
                 if(event =="JOBS_LOADED"){
-                    jobs = window.dataProvider.jobs.getByAgency(agencyId);
+                    jobs = window.dataProvider.jobs.getBySchool(schoolId);
 
                     window.dataProvider.jobs.unsubscribe(this);
 
@@ -98,33 +93,14 @@ class Loader {
         })
     }
 
-    loadProfileData(id) {
-        return new Promise((resolve, reject) => {
-            const handler = (event, data) => {
-                if (event == "AGENCY_PROFILE_LOADED") {
-                    let profileData = data;
-
-                    window.dataProvider.agencies.unsubscribe(this);
-
-                    resolve(profileData);
-                }
-            };
-
-            window.dataProvider.agencies.subscribeToChanges(handler);
-            window.dataProvider.agencies.getProfileData(id);
-        })
-    }
 }
 
 class View extends Component {
     constructor(props) {
         super(props);
 
-        this.getProfileData = this.getProfileData.bind(this);
-
         this.state = {
             item: null,
-            profileData: null,
             fullscreen: false,
             jobs: [],
             loading: true,
@@ -139,44 +115,11 @@ class View extends Component {
         const loader = new Loader(id);
 
         loader.load().then(results =>{
-            this.setState({
-                item:results.agency,
-                jobs:results.jobs,
-                profileData:results.profileData,
-                loading:false});
+            this.setState({item:results.school, jobs:results.jobs, loading:false});
         });
     }
 
     componentWillUnmount(){
-    }
-
-    getProfileData(){
-        let fields = [];
-
-        //Group Fields by name
-        for(let d of this.state.profileData){
-            let field = fields.find(element=>element.FieldName == d.FieldName);
-
-            if(!field) {
-                field = { FieldName:d.FieldName, Values:[]};
-                fields.push(field);
-            }
-
-            if(d.FieldValue != "")field.Values.push(d.FieldValue);
-        }
-
-        //Sort by field name and filter out empty values
-        return fields
-            .filter(element => element.Values.length > 0)
-            .sort((a,b)=>{
-                if (a.FieldName < b.FieldName) {
-                    return -1;
-                }
-                if (a.FieldName > b.FieldName) {
-                    return 1;
-                }
-                return 0;
-            });
     }
 
 
@@ -190,7 +133,7 @@ class View extends Component {
                 {!this.state.loading &&
                 <Form >
                     <FormSection justify="start">
-                        <h3>Agency</h3>
+                        <h3>School</h3>
                         <FormGroup
                             id="Name"
                             label="Name"
@@ -270,6 +213,7 @@ class View extends Component {
                             onChange={(e) => item.fields['Country'].setValue(e.target.value)}
                         />
                     </FormSection>
+
                     <FormSection>
                         <div className={styles.jobsToolbar}>
                             <h3>Jobs</h3>
@@ -287,29 +231,9 @@ class View extends Component {
                             data={this.state.jobs}
                         />
                     </FormSection>
-                    <FormSection justify={"start"}>
-                        <h3>Profile Data</h3>
-                        <ul className={styles.profileData}>
-                            {this.getProfileData().map(field =>
-                                <li>
-                                    <div>
-                                        <div className={styles.profileFieldName}>
-                                            {field.FieldName}
-                                        </div>
-                                        <div className={styles.profileFieldValue}>
-                                            <ul>
-                                                {field.Values.map(value =>
-                                                    <li>{decodeURI(value)}</li>
-                                                )}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                            )}
-                        </ul>
-                    </FormSection>
+
                     <FormSection justify="end">
-                        <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/agency/edit/${item.getKey()}`)} caption="Edit"/>
+                        <LinkButton type={'secondary'} href="#" onClick={() => this.props.history.push(`/administration/school/edit/${item.getKey()}`)} caption="Edit"/>
                         <LinkButton type={'secondary'} href="#" onClick={() => history.goBack()} caption="Close"/>
                     </FormSection>
                 </Form>

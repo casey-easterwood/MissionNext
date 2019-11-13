@@ -73,14 +73,14 @@ class View extends Component {
 
         //Group Fields by name
         for(let d of this.state.profileData){
-            let field = fields.find(element=>element.FieldName == d.FieldName);
+            let field = fields.find(element=>element.FieldName == (d.FieldName + " - " + d.NewFieldId));
 
             if(!field) {
-                field = { FieldName:d.FieldName, Values:[]};
+                field = { FieldName:d.FieldName + " - " + d.NewFieldId, Values:[]};
                 fields.push(field);
             }
 
-            if(d.FieldValue != "")field.Values.push(d.FieldValue);
+            if(d.FieldValue != "")field.Values.push(d.FieldValue + " - " + d.NewDictionaryId);
         }
 
         //Sort by field name and filter out empty values
@@ -131,7 +131,7 @@ class View extends Component {
                             onChange={(e) => item.fields['Updated'].setValue(e.target.value)}
                         />
                     </FormSection>
-                        <FormSection justify={"start"}>
+                    <FormSection justify={"start"}>
                             <h3>Profile Data</h3>
                             <ul className={styles.profileData}>
                                 {this.getProfileData().map(field =>

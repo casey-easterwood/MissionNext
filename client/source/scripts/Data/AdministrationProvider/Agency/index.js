@@ -10,6 +10,7 @@ class Agency extends Repository {
 
         this.get = this.get.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
+        this.getProfileData = this.getProfileData.bind(this);
         this.onSaved = this.onSaved.bind(this);
     }
 
@@ -56,6 +57,23 @@ class Agency extends Repository {
         //order matters publish before updating repo
         this.publishChanges("AGENCY_SAVED", response);
     }
+
+    getProfileData(agencyId){
+        this.Api.getProfileData(agencyId)
+            .then(results => {
+                let profileData = null;
+
+                for (let record of results) {
+                    profileData = JSON.parse(record["ProfileData"]);
+                }
+
+                if(profileData)
+                    this.publishChanges("AGENCY_PROFILE_LOADED", profileData);
+                else
+                    this.publishChanges("AGENCY_PROFILE_LOADED", null);
+            });
+    }
+
 }
 
 export default Agency;

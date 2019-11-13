@@ -1,6 +1,6 @@
 const { Query } = require('../Query');
 
-class AgenciesContext {
+class SchoolsContext {
     constructor(app){
         this.database = app.database;
 
@@ -13,7 +13,7 @@ class AgenciesContext {
     }
 
     listAll(){
-        let sql = 'SELECT * FROM Agencies ORDER BY Name';
+        let sql = 'SELECT * FROM Schools ORDER BY Name';
         let values = [];
         let query = new Query(sql, values);
 
@@ -31,7 +31,7 @@ class AgenciesContext {
     }
 
     get(id) {
-        let sql = 'SELECT * FROM Agencies where Id = ?';
+        let sql = 'SELECT * FROM Schools where Id = ?';
         let values = [id];
         let query = new Query(sql, values);
 
@@ -53,7 +53,7 @@ class AgenciesContext {
     };
 
     exists(name) {
-        let sql = 'SELECT Name FROM Agencies where Name = ?';
+        let sql = 'SELECT Name FROM Schools where Name = ?';
         let values = [name];
         let query = new Query(sql, values);
 
@@ -76,7 +76,7 @@ class AgenciesContext {
     };
 
     create(data) {
-        let sql = 'INSERT INTO Agencies (%fields%) VALUES (%values%)';
+        let sql = 'INSERT INTO Schools (%fields%) VALUES (%values%)';
 
         let values = [];
         let fields = [];
@@ -109,7 +109,7 @@ class AgenciesContext {
     };
 
     update(id, data) {
-        let sql = 'UPDATE Agencies set ';
+        let sql = 'UPDATE Schools set ';
 
         let values = [];
 
@@ -137,7 +137,7 @@ class AgenciesContext {
     };
 
     delete(id) {
-        let sql = 'DELETE from Agencies WHERE Id = ?';
+        let sql = 'DELETE from Schools WHERE Id = ?';
         let values = [id];
         let query = new Query(sql, values);
 
@@ -154,28 +154,6 @@ class AgenciesContext {
         })
     };
 
-    getProfileData(id) {
-        let sql = 'SELECT AgencyId, ProfileData FROM Agencies_Profile where AgencyId = ?';
-        let values = [id];
-        let query = new Query(sql, values);
-
-        return new Promise((resolve) => {
-            this.database.connect()
-
-                .then((connection) => {
-                    return query.execute(connection);
-                })
-
-                .then((response) => {
-                    resolve(response.results);
-                })
-
-                .catch((error) => {
-                    console.log(error);
-                })
-        })
-    };
-
 }
 
-module.exports = AgenciesContext;
+module.exports = SchoolsContext;

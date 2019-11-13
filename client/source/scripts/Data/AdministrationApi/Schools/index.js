@@ -1,12 +1,12 @@
 import Api from "../../Api";
 
-class Index extends Api{
+class Schools extends Api{
     constructor() {
         super();
     }
 
     getList(credentials){
-        return fetch("/api/candidates/list",{
+        return fetch("/api/schools/list",{
             method: "GET",
             credentials: "include",
             headers: {
@@ -18,7 +18,7 @@ class Index extends Api{
     }
 
     update(data){
-        return fetch("/api/candidates/save",{
+        return fetch("/api/schools/save",{
             method: "POST",
             credentials: "include",
             body: JSON.stringify(data),
@@ -31,7 +31,7 @@ class Index extends Api{
     }
 
     create(data){
-        return fetch("/api/candidates/createNew",{
+        return fetch("/api/schools/createNew",{
             method: "POST",
             credentials: "include",
             body: JSON.stringify(data),
@@ -44,7 +44,7 @@ class Index extends Api{
     }
 
     exists(Name){
-        return fetch("/api/candidates/exists",{
+        return fetch("/api/schools/exists",{
             method: "POST",
             credentials: "include",
             body: JSON.stringify({Name:Name}),
@@ -57,7 +57,7 @@ class Index extends Api{
     }
 
     delete(id){
-        return fetch("/api/candidates/delete",{
+        return fetch("/api/schools/delete",{
             method: "POST",
             credentials: "include",
             body: JSON.stringify({id:id}),
@@ -69,21 +69,9 @@ class Index extends Api{
             .then(response => response.json())
     }
 
-    getProfileData(candidateId){
-        return fetch("/api/candidates/getProfileData/" + candidateId,{
-            method: "GET",
-            credentials: "include",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authentication' : this.getAuthHeader()
-            },
-        })
-            .then(response => response.json())
-    }
-
     static getInstance(){
-        return new Index();
+        return new Schools();
     }
 }
 
-export default Index
+export default Schools

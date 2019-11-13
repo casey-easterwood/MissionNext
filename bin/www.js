@@ -16,6 +16,7 @@ const { Route : apiAuthenticate } = require('../server/routers/administrationApi
 const { Route : apiUsers } = require('../server/routers/administrationApi/users');
 const { Route : apiUsersRoles } = require('../server/routers/administrationApi/usersRoles');
 const { Route : apiAgencies } = require('../server/routers/administrationApi/agencies');
+const { Route : apiSchools } = require('../server/routers/administrationApi/schools');
 const { Route : apiAgency } = require('../server/routers/agencyApi/agency');
 const { Route : apiAgencyProfileQuestionGroups } = require('../server/routers/agencyApi/profileQuestionGroups');
 const { Route : apiAgencyProfileQuestions } = require('../server/routers/agencyApi/profileQuestions');
@@ -47,6 +48,7 @@ global.app.registerRoute('/api/agency/ProfileQuestionGroups', apiAgencyProfileQu
 global.app.registerRoute('/api/agency/ProfileQuestions', apiAgencyProfileQuestions(app));
 global.app.registerRoute('/api/agency/ProfileQuestionAnswers', apiAgencyProfileQuestionAnswers(app));
 global.app.registerRoute('/api/agencies/', apiAgencies(app));
+global.app.registerRoute('/api/schools/', apiSchools(app));
 global.app.registerRoute('/api/candidates/', apiCandidates(app));
 global.app.registerRoute('/api/candidate/profile', CandidateProfile(app));
 global.app.registerRoute('/api/jobs/', apiJobs(app));

@@ -19,29 +19,26 @@
   }
 }
 
-.questionList{
-  list-style: none;
-  width: 100%;
-  padding-left: 0;
-
-  li {
-
+.profileData{
+  li div{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 5px 0;
-
-    .question {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      width: 100%;
-    }
-    .answer {
-      padding-left: 20px;
-      width: 100%;
-      color: map_get($color-primary-map, "primary-80");
-    }
+    width: 100%;
+    padding: 5px;
   }
+
+}
+
+.profileFieldName{
+  //flex-basis: 200px;
+  flex-grow: 1;
+  font-weight: bold;
+
+  text-align: right;
+}
+.profileFieldValue {
+  //flex-basis: 5;
+  flex-grow: 1;
 }
